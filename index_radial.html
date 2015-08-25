@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+ 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    
+
+
+</head>
+    <body>
+        
+        <style>
+
+.node {
+  cursor: pointer;
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+</style>
+        
+    <script>
+
+var margin = {top: 20, right: 120, bottom: 20, left: 120},
+    width = 960 - margin.right - margin.left,
+    height = 800 - margin.top - margin.bottom;
+
+var i = 0,
+    duration = 750,
+    rootNode;
+
+var tree = d3.layout.tree()
+    .size([height, width]);
+
+//var diagonal = d3.svg.diagonal()
+//    .projection(function(d) { return [d.y, d.x]; });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.right + margin.left)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+//        http://bl.ocks.org/mbostock/raw/4063550/flare.json
+ 
+ 
+var diameter = 960;
+
+
+ var questionNodes = [] ;
+    // process VARIABLES dataset
+ d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/variables?user_key=7a33ae85e08913180dd1bad6a3059acc", function(error, questions) {
+    if (error) throw error;    
+    // process TOPICS dataset
+        d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/topics?user_key=7a33ae85e08913180dd1bad6a3059acc", function(error, topics) {
+            if (error) throw error;
+
+            var topicNodes = [] ;
+            topics.Topics.forEach(function(d) {
+                var topicNode = {};
+                topicNode.name = d.TopicValue ;
+                
+                var variables = questions.Variables ;
+                var questionNodes = [] ;
+                variables.forEach(function(v) {
+               
+                    if (v.Topic != null && v.Topic.TopicId == d.TopicId )
+                    {
+                        var question = v.Question ;
+                        var questionNode = {} ;
+                        questionNode.name = question ;
+                        
+                        var categories = v.Categories ;
+                        var categoryNodes = [] ;
+                        categories.forEach(function(c){
+                            
+                            var categoryNode = {} ;
+                            var categoryLabel = c.CategoryLabel ;
+                            categoryNode.name = categoryLabel ;
+                            categoryNodes.push(categoryNode) ;
+                        }) ;
+                        
+                        questionNode.children = categoryNodes ;                        
+                        questionNodes.push(questionNode) ; 
+                        return ;
+                    }
+                }); // ends variables.forEach
+                
+                topicNode.children = questionNodes ;
+                topicNodes.push(topicNode) ; 
+            }); // ends Topics.forEach
+                           
+            rootNode = {"name": "Topics", "children": topicNodes } ;               
+            
+    
+            rootNode.x0 = height / 2;
+            rootNode.y0 = 0;
+
+            function collapse(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d._children.forEach(collapse);
+                    d.children = null;
+                }
+            }
+
+           // rootNode.children.forEach(collapse);
+        //    update(rootNode);
+
+            
+              var nodes = tree.nodes(rootNode),
+      links = tree.links(nodes);
+
+  var link = svg.selectAll(".link")
+      .data(links)
+    .enter().append("path")
+      .attr("class", "link")
+      .attr("d", diagonal);
+
+  var node = svg.selectAll(".node")
+      .data(nodes)
+    .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
+
+  node.append("circle")
+      .attr("r", 4.5);
+
+  node.append("text")
+      .attr("dy", ".31em")
+      .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+      .attr("transform", function(d) { return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)"; })
+      .text(function(d) { return d.name; });
+
+            
+                   
+        }); // ends processing TOPICS data
+     
+ }); // ends processing VARIABLES data
+     
+     
+var diameter = 960;
+
+var tree = d3.layout.tree()
+    .size([360, diameter / 2 - 120])
+    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
+
+var diagonal = d3.svg.diagonal.radial()
+    .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter - 150)
+  .append("g")
+    .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+
+//d3.json("http://bl.ocks.org/mbostock/raw/4063550/flare.json", function(error, root) {
+//  if (error) throw error;
+
+
+        //});
+                             
+d3.select(self.frameElement).style("height", "800px");
+
+
+
+</script>
+
+    
+
+</body>
+
+</html>

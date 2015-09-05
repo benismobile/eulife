@@ -1,0 +1,137 @@
+<html>
+
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    
+    </head>
+<body>
+
+ <script> 
+     
+   
+    var viz = { "width":1000 , 
+               "height":1000 } ;
+     
+    
+    var svgContainer = d3.select("body").append("svg")
+                                   .attr("width", viz.width)
+                                   .attr("height", viz.height);
+    
+     
+     var wheelColors = [
+         "blue",
+         "purple",
+         "red",
+         "orange",
+         "yellow",
+         "greenyellow",
+         "green",
+         "lightseagreen"
+         ];
+     
+     var r1 = 150 ;
+     var r2 = 200 ;
+     var pathCommand = "" ;
+     
+     var centerX = (viz.width / 2) ;
+     var centerY = (viz.height / 2) ;
+     var lastCircumfrancePoint = {"deltaX":0, "deltaY":0} ;
+     var  lastSectionAngleShifted = 0 ;
+     
+     for(var section = 1 ; section < 10 ; section++)
+     {
+        // move to the centre point 
+        pathCommand = "M " + centerX + " " + centerY  ;
+         // set pie angle to 45 degrees 
+        angle = Math.PI/4 ; 
+        // increase angle to this segment of pie
+        sectionAngle = angle * section ;
+         // shfit the angle by 22.5% to shift the segments in pie from default unit circle
+        sectionAngleShifted = sectionAngle + (Math.PI/8) ;
+        var deltaX =  Math.cos(sectionAngleShifted) * r1 ;
+        var deltaY =  Math.sin(sectionAngleShifted) * r1 ;
+     
+         // drae line from centre point to the point on circle defined by segment angle and radius of pie
+        pathCommand = pathCommand + " L " + (centerX + deltaX ) + " " + (centerY + deltaY) ;
+         
+        
+        if(section > 1)
+        {
+            pathCommand = pathCommand + " A " + r1 + " " + r1 +" 0 0 0 " + (centerX + lastCircumfrancePoint.deltaX) + " " + (centerY + lastCircumfrancePoint.deltaY );
+              
+               // add path to svg element
+        svgContainer.append("path")
+                 .attr("d", pathCommand)
+                 .attr("stroke", "black")
+                 .attr("stroke-width", "2")
+                 .attr("fill", wheelColors[section-2] ) 
+                 .attr("opacity", "1") ;
+            
+            
+            r2OffsetAngle = Math.PI / 16 ;
+            var deltaOffsetX =  Math.cos(sectionAngleShifted - r2OffsetAngle) * r2 ;
+            var deltaOffsetY =  Math.sin(sectionAngleShifted - r2OffsetAngle ) * r2 ;
+            var lastDeltaOffsetX =  Math.cos(lastSectionAngleShifted + r2OffsetAngle) * r2 ;
+            var lastDeltaOffsetY =  Math.sin(lastSectionAngleShifted + r2OffsetAngle ) * r2 ;
+            
+            var pathCommand2 = "M " + (centerX + deltaX ) + " " + (centerY + deltaY ) +
+                               "L " + (centerX + deltaOffsetX ) + " " + (centerY + deltaOffsetY ) +
+                               "M " + (centerX + lastCircumfrancePoint.deltaX ) + " " + (centerY + lastCircumfrancePoint.deltaY ) + 
+                               " L " + (centerX + lastDeltaOffsetX ) + " " + (centerY + lastDeltaOffsetY ) +                            " A " + r2 + " " + r2 +" 0 0 1 " + (centerX + deltaOffsetX) + " " + (centerY + deltaOffsetY )
+                               
+            ;
+            
+            
+            svgContainer.append("path")
+                 .attr("d", pathCommand2)
+                 .attr("stroke", "red")
+                 .attr("stroke-width", "2")
+                 .attr("fill", "none" ) 
+                 .attr("opacity", "1") ;
+            
+        }
+         
+         lastCircumfrancePoint.deltaX = deltaX ;
+        lastCircumfrancePoint.deltaY = deltaY ;
+         lastSectionAngleShifted = sectionAngleShifted ;
+      
+     }
+ </script>     
+    <!-- <svg width="1000" height="1000">
+  <path d=" M 500 500
+            L 400 300
+            A 5 1 0 0 1 600 300
+            L 500 500"
+            stroke="black" stroke-width="2" fill="red" />
+
+    <path d=" M 420 200
+            Q 398 280 400 300 
+            M 420 200
+            A 5 1 0 0 1 580  200
+            Q 602 280   600 300
+            A 5 1 0 0 0 400 300"
+            stroke="black" stroke-width="2" fill="green"/>
+
+    <path d="M 450 100
+            L 420 200 
+            M 450 100
+            A 5 1 0 0 1 550  100
+            L 580 200
+            A 5 1 0 0 0 420 200"
+            stroke="black" stroke-width="2" fill="blue"/>
+
+     <path d="M 450 100
+            L 500 0 
+            L 550 100
+            A 5 1 0 0 0 450 100"
+            stroke="black" stroke-width="2" fill="pink"/>
+    
+-
+
+    </svg>
+
+  -->
+</body>
+
+
+</html>

@@ -67,7 +67,7 @@
                  .attr("stroke", "black")
                  .attr("stroke-width", "2")
                  .attr("fill", wheelColors[section-2]  ) 
-                 .attr("opacity", "1") ;
+                 .attr("opacity", "0.85") ;
             
             
             r2OffsetAngle = Math.PI / 24 ;
@@ -109,7 +109,7 @@
             
              svgContainer.append("path")
                  .attr("d", pathCommand3)
-                 .attr("stroke", "green")
+                 .attr("stroke", "black")
                  .attr("stroke-width", "2")
                  .attr("fill", wheelColors[section-2] ) 
                  .attr("opacity", "0.5") ;
@@ -126,13 +126,35 @@
                 " L " +  (centerX + lastDeltaOffsetXr3) + " " + (centerY + lastDeltaOffsetYr3 ) + 
                 " A " + r3 + " " + r3 +" 0 0 1 " + (centerX + deltaOffsetXr3) + " " + (centerY + deltaOffsetYr3) ;
             
-             svgContainer.append("path")
+             var path = svgContainer.append("path")
                  .attr("d", pathCommand4)
-                 .attr("stroke", "blue")
+                 .attr("stroke", "black")
                  .attr("stroke-width", "2")
                  .attr("fill", wheelColors[section-2] ) 
-                 .attr("opacity", "0.25") ;
+                 .attr("opacity", "0.25")
+                 .on("mouseover", function(d) { 
+                     var segment = d3.select(this)
+                         segment.transition()
+                                .duration(500)
+                                .ease("linear")
+                                .attr("stroke-width", "5")
+                                .attr("opacity", "1.0") ; }
+                    
+                    
+                    )
+                  .on("mouseout", function(d) { 
+                     var segment = d3.select(this)
+                         segment.transition()
+                                .duration(500)
+                                .ease("linear")
+                                .attr("stroke-width", "2")
+                                .attr("opacity", "0.25") ;; }
+                    
+                    
+                    );
             
+             
+             
         }
          
          
@@ -141,6 +163,16 @@
          lastSectionAngleShifted = sectionAngleShifted ;
       
      }
+     /*
+       var paths = svgContainer.select("path").on("click", function(d){     
+                        d.transition()
+                        d.duration(1000)
+                        d.ease("linear")
+                        d.attr("stroke-width", "5");
+                        });
+            
+     */
+    
  </script>     
     <!-- <svg width="1000" height="1000">
   <path d=" M 500 500

@@ -41,6 +41,53 @@
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
     width = 960 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom;
+        
+
+var emotions = {
+
+    "0":{ "vector":{"x":0, "y":0}, "emotionId":0, "emotion":"neutral", "level":0},
+    
+    "1":{ "vector":{"x":0, "y":-1}, "emotionId":1, "emotion":"pensieve", "level":1},
+    "2":{ "vector":{"x":0, "y":-2}, "emotionId":2, "emotion":"pensieve", "level":2},
+    "3":{ "vector":{"x":0, "y":-3}, "emotionId":3, "emotion":"pensieve", "level":3},
+    "4":{ "vector":{"x":0, "y":-4}, "emotionId":4, "emotion":"sadness", "level":1},
+    "5":{ "vector":{"x":0, "y":-5}, "emotionId":5, "emotion":"sadness", "level":2},
+    "6":{ "vector":{"x":0, "y":-6}, "emotionId":6, "emotion":"sadness", "level":3},
+    "7":{ "vector":{"x":0, "y":-7}, "emotionId":7, "emotion":"sadness", "level":4},
+    "8":{ "vector":{"x":0, "y":-8}, "emotionId":8, "emotion":"sadness", "level":5},
+    "9":{ "vector":{"x":0, "y":-9}, "emotionId":9, "emotion":"grief", "level":1},
+    "10":{ "vector":{"x":0, "y":-10}, "emotionId":10, "emotion":"grief", "level":2},
+    
+    "11":{ "vector":{"x":0, "y":1}, "emotionId":11, "emotion":"serenity", "level":1},
+    "12":{ "vector":{"x":0, "y":2}, "emotionId":12, "emotion":"serenity", "level":2},
+    "13":{ "vector":{"x":0, "y":3}, "emotionId":13, "emotion":"serenity", "level":3},
+    "14":{ "vector":{"x":0, "y":4}, "emotionId":14, "emotion":"joy", "level":1},
+    "15":{ "vector":{"x":0, "y":5}, "emotionId":15, "emotion":"joy", "level":2},
+    "16":{ "vector":{"x":0, "y":6}, "emotionId":16, "emotion":"joy", "level":3},
+    "17":{ "vector":{"x":0, "y":7}, "emotionId":17, "emotion":"joy", "level":4},
+    "18":{ "vector":{"x":0, "y":8}, "emotionId":18, "emotion":"joy", "level":5},
+    "19":{ "vector":{"x":0, "y":9}, "emotionId":19, "emotion":"ectasy", "level":1},
+    "20":{ "vector":{"x":0, "y":10}, "emotionId":20, "emotion":"ectasy", "level":2}
+    
+    
+} ;
+        
+
+var categoryEmotions = {
+
+    "720":{ "variableId":153 , "categoryId":720 , "emotionId": 10 },
+    "721":{ "variableId":153 , "categoryId":721 , "emotionId": 8 },
+    "722":{ "variableId":153 , "categoryId":722 , "emotionId": 6 },
+    "723":{ "variableId":153 , "categoryId":723 , "emotionId": 4 },
+    "724":{ "variableId":153 , "categoryId":724 , "emotionId": 2 },
+    "725":{ "variableId":153 , "categoryId":725 , "emotionId": 11 },
+    "726":{ "variableId":153 , "categoryId":726 , "emotionId": 13 },
+    "727":{ "variableId":153 , "categoryId":727 , "emotionId": 15 },
+    "728":{ "variableId":153 , "categoryId":728 , "emotionId": 17 },
+    "729":{ "variableId":153 , "categoryId":729 , "emotionId": 19 }  
+} ;
+        
+        
 
 var i = 0,
     duration = 750,
@@ -73,17 +120,17 @@ var svg = d3.select("body").append("svg")
             var topicNodes = [] ;
             topics.Topics.forEach(function(d) {
                 var topicNode = {};
-                topicNode.name = d.TopicValue ;
+                topicNode.name = d.TopicId + ":" + d.TopicValue  ;
                 
                 var variables = questions.Variables ;
                 var questionNodes = [] ;
                 variables.forEach(function(v) {
                
-                    if (v.Topic != null && v.Topic.TopicId == d.TopicId )
+                    if (v.Topic != null && v.Topic.TopicId == d.TopicId && v.Topic.TopicId == 16 )
                     {
                         var question = v.Question ;
                         var questionNode = {} ;
-                        questionNode.name = question ;
+                        questionNode.name = v.VariableId + ":" + question ;
                         
                         var categories = v.Categories ;
                         var categoryNodes = [] ;
@@ -91,8 +138,22 @@ var svg = d3.select("body").append("svg")
                             
                             var categoryNode = {} ;
                             var categoryLabel = c.CategoryLabel ;
-                            categoryNode.name = categoryLabel ;
-                            categoryNodes.push(categoryNode) ;
+                            
+                            
+                            categoryNode.name = c.CategoryId + ":" + categoryLabel ;
+                                
+                            
+                                cEmotion = categoryEmotions[c.CategoryId] ;
+                                if(cEmotion && c.CategoryId == cEmotion.categoryId)
+                                {
+                                     var emotion =   emotions[cEmotion.emotionId] ;
+                                     categoryNode.name = c.CategoryId + ":" + categoryLabel + cEmotion.emotionId + " :" + emotion.emotion;
+                                }
+                               
+                            
+                                     categoryNodes.push(categoryNode) ; 
+                            
+                            
                         }) ;
                         
                         questionNode.children = categoryNodes ;                        
@@ -102,7 +163,10 @@ var svg = d3.select("body").append("svg")
                 }); // ends variables.forEach
                 
                 topicNode.children = questionNodes ;
-                topicNodes.push(topicNode) ; 
+                if(d.TopicId == 16)
+                {
+                   topicNodes.push(topicNode) ;
+                }
             }); // ends Topics.forEach
                            
             rootNode = {"name": "Topics", "children": topicNodes } ;               
@@ -219,13 +283,31 @@ function update(source) {
       })
       .remove();
 
+    
     d3.selectAll('text')
-        .attr("text-anchor", function(d) { return  "start" ; })
+        .attr("text-anchor", function(d) { return d.depth >= maxDepth ?  "start" : "end" ; })
          .attr("x", function(d) { return  10; })
          .attr("dy", ".35em")
-        .text(function(d) { return d.depth >= maxDepth ?  d.name : ""; }) 
-    .call(wrap, 300) ; //TODO make wrap dependent on number of children more children longer line
-        //
+        .text(function(d) { //return d.depth >= maxDepth ?  d.name : ""; 
+                          
+                                if(d.depth >= maxDepth)
+                                {
+                                    return d.name ;
+                                }
+                                if(d.depth == (maxDepth -1) && d.children)
+                                {
+                                    return d.name ;   
+                                }
+                                else
+                                {
+                                    return "" ;   
+                                }
+        
+        
+                          
+                          }) ; 
+   // .call(wrap, 300) ; //TODO make wrap dependent on number of children more children longer line
+        
     // wrap(d3.selectAll('text'),200);
     
   // Stash the old positions for transition.

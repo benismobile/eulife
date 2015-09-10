@@ -131,6 +131,7 @@ var svg = d3.select("body").append("svg")
                         var question = v.Question ;
                         var questionNode = {} ;
                         questionNode.name = v.VariableId + ":" + question ;
+                        questionNode.variableId = v.VariableId ;
                         
                         var categories = v.Categories ;
                         var categoryNodes = [] ;
@@ -140,14 +141,19 @@ var svg = d3.select("body").append("svg")
                             var categoryLabel = c.CategoryLabel ;
                             
                             
-                            categoryNode.name = c.CategoryId + ":" + categoryLabel ;
-                                
+                            categoryNode.name = " " + c.CategoryId + ":" + categoryLabel ;
+                            categoryNode.categoryId = c.CategoryId ;
+                            categoryNode.categoryLabel = c.CategoryLabel ;
+                            categoryNode.categoryValue = c.CategoryValue ;
+                           
                             
                                 cEmotion = categoryEmotions[c.CategoryId] ;
                                 if(cEmotion && c.CategoryId == cEmotion.categoryId)
                                 {
                                      var emotion =   emotions[cEmotion.emotionId] ;
-                                     categoryNode.name = c.CategoryId + ":" + categoryLabel + cEmotion.emotionId + " :" + emotion.emotion;
+                                     categoryNode.name = " " + c.CategoryId + ":" + categoryLabel + cEmotion.emotionId + " :" + emotion.emotion;
+                                     categoryNode.emotionId = cEmotion.emotionId ;
+                                     categoryNode.emotion = emotion ;
                                 }
                                
                             
@@ -288,11 +294,15 @@ function update(source) {
         .attr("text-anchor", function(d) { return d.depth >= maxDepth ?  "start" : "end" ; })
          .attr("x", function(d) { return  10; })
          .attr("dy", ".35em")
-        .text(function(d) { //return d.depth >= maxDepth ?  d.name : ""; 
+        .text(function(d) { 
                           
                                 if(d.depth >= maxDepth)
                                 {
-                                    return d.name ;
+                                  //  if(d.data)
+                            //        {
+                              //       d.name = d.name + + "year:" + d.data[0].Year +  " frequency:" + d.data[0].WeightedFrequency ;
+                                //    }
+                                       return d.name ;
                                 }
                                 if(d.depth == (maxDepth -1) && d.children)
                                 {
@@ -306,6 +316,9 @@ function update(source) {
         
                           
                           }) ; 
+    
+  //   https://api.ukdataservice.ac.uk/V1/datasets/EQLS/TimeseriesFrequency?user_key=7a33ae85e08913180dd1bad6a3059acc&variableId=153
+    
    // .call(wrap, 300) ; //TODO make wrap dependent on number of children more children longer line
         
     // wrap(d3.selectAll('text'),200);
@@ -322,11 +335,52 @@ function click(d) {
   if (d.children) {
     d._children = d.children;
     d.children = null;
-  } else {
+    update(d) ;
+  } 
+  else {
+    
     d.children = d._children;
     d._children = null;
+   // if question variable node clicked get variable data and append to child ctegory nodes    
+    if(d.variableId)
+    {
+        var varNode = d ;
+        // get variable data
+           d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/TimeseriesFrequency?user_key=7a33ae85e08913180dd1bad6a3059acc&variableId="+d.variableId, function(error, varData) {
+               
+              varData.TimeSeries.forEach(function(dataPoint){
+                   // match the datapoint to the mathing answer (category) child nodes for this question (variable)
+                   // should return a single node in the filter array for the matching answer 
+                    categoryNode = varNode.children.filter(function(d) { 
+                        return d.categoryValue == dataPoint.Value 
+                    }) ;
+                  
+                    if(categoryNode.length > 0) {
+                        if(!categoryNode[0].data ) {
+                            categoryNode[0].data = [] ;
+                        }
+                  
+                        categoryNode[0].data.push(dataPoint) ;
+                        if(categoryNode[0].data.length <= 2) // TODO can we check this earlier - happens when variable node expanded for second time
+                        {
+                         categoryNode[0].name = categoryNode[0].name + " " + dataPoint.Year +":" + dataPoint.WeightedFrequency + " " ;
+                        } 
+                    }
+                     
+                  
+              });
+              
+              update(d) ;
+           });
+    }
+    else
+    {
+        update(d) ;      
+    }
+    
+    
   }
-  update(d);
+    
 }
 
   function wrap(text, width) {

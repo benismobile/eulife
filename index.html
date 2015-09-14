@@ -43,6 +43,32 @@ var margin = {top: 20, right: 120, bottom: 20, left: 120},
     height = 800 - margin.top - margin.bottom;
         
 
+var sine45 = Math.sin((Math.PI/4)) ;
+var cos45 = Math.cos((Math.PI/4)) ;
+var sine135 = Math.sin(((3*Math.PI)/4)) ;
+var cos135 = Math.cos(((3*Math.PI)/4)) ;
+var sine225 = Math.sin( Math.PI + (Math.PI/4) ) ;
+var cos225 = Math.cos( Math.PI + (Math.PI/4) ) ;        
+var sine315 = Math.sin( Math.PI + ((3*Math.PI)/4) ) ;
+var cos315 = Math.cos( Math.PI + ((3*Math.PI)/4) ) ; 
+var sine22_5 = Math.sin(Math.PI / 8 ) ;
+var cos22_5 = Math.cos(Math.PI / 8 ) ;
+var sine67_5 = Math.sin( (3*Math.PI) / 8 ) ;
+var cos67_5 = Math.cos( (3*Math.PI) / 8 ) ;
+var sine112_5 = Math.sin( (5*Math.PI) / 8 );
+var cos112_5 = Math.cos ( (5*Math.PI) / 8 ) ;
+var sine157_5 = Math.sin( Math.PI - (Math.PI / 8 ) ) ; 
+var cos157_5 = Math.cos( Math.PI - (Math.PI / 8 ) ) ;
+var sine202_5 = Math.sin(Math.PI + (Math.PI/8) ) ;
+var cos202_5 = Math.cos(Math.PI + (Math.PI/8)) ;
+var sine247_5 = Math.sin(Math.PI + ( (Math.PI*3) / 8) ) ;        
+var cos247_5 = Math.cos(Math.PI + ( (Math.PI*3) / 8) ) ;        
+var sine292_5 = Math.sin(Math.PI + ( 5 * Math.PI/8) ) ;
+var cos292_5 = Math.cos(Math.PI + ( 5 * Math.PI/8) ) ;        
+var sine337.5 = Math.sin( (15*Math.PI) / 8 ) ;        
+var cos337.5 = Math.acos( (15*Math.PI) / 8 ) ;        
+        
+        
 var emotions = {
 
     "0":{ "vector":{"x":0, "y":0}, "emotionId":0, "emotion":"neutral", "level":0},
@@ -91,51 +117,51 @@ var emotions = {
      "39":{ "vector":{"x":-9, "y":0}, "emotionId":39, "emotion":"rage", "level":1},
      "40":{ "vector":{"x":-10, "y":0}, "emotionId":40, "emotion":"rage", "level":2},
     
-     "41":{ "vector":{"x":1, "y":1}, "emotionId":41, "emotion":"acceptance", "level":1},
-     "42":{ "vector":{"x":2, "y":2}, "emotionId":42, "emotion":"acceptance", "level":2},
-     "43":{ "vector":{"x":3, "y":3}, "emotionId":43, "emotion":"acceptance", "level":3},
-     "44":{ "vector":{"x":4, "y":4}, "emotionId":44, "emotion":"trust", "level":1},
-     "45":{ "vector":{"x":5, "y":5}, "emotionId":45, "emotion":"trust", "level":2},
-     "46":{ "vector":{"x":6, "y":6}, "emotionId":46, "emotion":"trust", "level":3},
-     "47":{ "vector":{"x":7, "y":7}, "emotionId":47, "emotion":"trust", "level":4},
-     "48":{ "vector":{"x":8, "y":8}, "emotionId":48, "emotion":"trust", "level":5},
-     "49":{ "vector":{"x":9, "y":9}, "emotionId":49, "emotion":"admiration", "level":1},
-     "50":{ "vector":{"x":10, "y":10}, "emotionId":50, "emotion":"admiration", "level":2},
+     "41":{ "vector":{"x":1*cos45, "y":1*sine45}, "emotionId":41, "emotion":"acceptance", "level":1},
+     "42":{ "vector":{"x":2*cos45, "y":2*sine45}, "emotionId":42, "emotion":"acceptance", "level":2},
+     "43":{ "vector":{"x":3*cos45, "y":3*sine45}, "emotionId":43, "emotion":"acceptance", "level":3},
+     "44":{ "vector":{"x":4*cos45, "y":4*sine45}, "emotionId":44, "emotion":"trust", "level":1},
+     "45":{ "vector":{"x":5*cos45, "y":5*sine45}, "emotionId":45, "emotion":"trust", "level":2},
+     "46":{ "vector":{"x":6*cos45, "y":6*sine45}, "emotionId":46, "emotion":"trust", "level":3},
+     "47":{ "vector":{"x":7*cos45, "y":7*sine45}, "emotionId":47, "emotion":"trust", "level":4},
+     "48":{ "vector":{"x":8*cos45, "y":8*sine45}, "emotionId":48, "emotion":"trust", "level":5},
+     "49":{ "vector":{"x":9*cos45, "y":9*sine45}, "emotionId":49, "emotion":"admiration", "level":1},
+     "50":{ "vector":{"x":10*cos45, "y":10*sine45}, "emotionId":50, "emotion":"admiration", "level":2},
     
-     "51":{ "vector":{"x":-1, "y":-1}, "emotionId":51, "emotion":"boredom", "level":1},
-     "52":{ "vector":{"x":-2, "y":-2}, "emotionId":52, "emotion":"boredom", "level":2},
-     "53":{ "vector":{"x":-3, "y":-3}, "emotionId":53, "emotion":"boredom", "level":3},
-     "54":{ "vector":{"x":-4, "y":-4}, "emotionId":54, "emotion":"disgust", "level":1},
-     "55":{ "vector":{"x":-5, "y":-5}, "emotionId":55, "emotion":"disgust", "level":2},
-     "56":{ "vector":{"x":-6, "y":-6}, "emotionId":56, "emotion":"disgust", "level":3},
-     "57":{ "vector":{"x":-7, "y":-7}, "emotionId":57, "emotion":"disgust", "level":4},
-     "58":{ "vector":{"x":-8, "y":-8}, "emotionId":58, "emotion":"disgust", "level":5},
-     "59":{ "vector":{"x":-9, "y":-9}, "emotionId":59, "emotion":"loathing", "level":1},
-     "60":{ "vector":{"x":-10, "y":-10}, "emotionId":60, "emotion":"loathing", "level":2},
+     "51":{ "vector":{"x":1*cos225, "y":1*sine225}, "emotionId":51, "emotion":"boredom", "level":1},
+     "52":{ "vector":{"x":2*cos225, "y":2*sine225}, "emotionId":52, "emotion":"boredom", "level":2},
+     "53":{ "vector":{"x":3*cos225, "y":3*sine225}, "emotionId":53, "emotion":"boredom", "level":3},
+     "54":{ "vector":{"x":4*cos225, "y":4*sine225}, "emotionId":54, "emotion":"disgust", "level":1},
+     "55":{ "vector":{"x":5*cos225, "y":5*sine225}, "emotionId":55, "emotion":"disgust", "level":2},
+     "56":{ "vector":{"x":6*cos225, "y":6*sine225}, "emotionId":56, "emotion":"disgust", "level":3},
+     "57":{ "vector":{"x":7*cos225, "y":7*sine225}, "emotionId":57, "emotion":"disgust", "level":4},
+     "58":{ "vector":{"x":8*cos225, "y":8*sine225}, "emotionId":58, "emotion":"disgust", "level":5},
+     "59":{ "vector":{"x":9*cos225, "y":9*sine225}, "emotionId":59, "emotion":"loathing", "level":1},
+     "60":{ "vector":{"x":10*cos225, "y":10*sine225}, "emotionId":60, "emotion":"loathing", "level":2},
     
-     "71":{ "vector":{"x":-1, "y":1}, "emotionId":71, "emotion":"interest", "level":1},
-     "72":{ "vector":{"x":-2, "y":2}, "emotionId":72, "emotion":"interest", "level":2},
-     "73":{ "vector":{"x":-3, "y":3}, "emotionId":73, "emotion":"interest", "level":3},
-     "74":{ "vector":{"x":-4, "y":4}, "emotionId":74, "emotion":"anticipation", "level":1},
-     "75":{ "vector":{"x":-5, "y":5}, "emotionId":75, "emotion":"anticipation", "level":2},
-     "76":{ "vector":{"x":-6, "y":6}, "emotionId":76, "emotion":"anticipation", "level":3},
-     "77":{ "vector":{"x":-7, "y":7}, "emotionId":77, "emotion":"anticipation", "level":4},
-     "78":{ "vector":{"x":-8, "y":8}, "emotionId":78, "emotion":"anticipation", "level":5},  
-     "79":{ "vector":{"x":-9, "y":9}, "emotionId":79, "emotion":"vigilance", "level":1},
-     "80":{ "vector":{"x":-10, "y":10}, "emotionId":80, "emotion":"vigilance", "level":2},
+     "71":{ "vector":{"x":1*cos135, "y":1*sine135}, "emotionId":71, "emotion":"interest", "level":1},
+     "72":{ "vector":{"x":2*cos135, "y":2*sine135}, "emotionId":72, "emotion":"interest", "level":2},
+     "73":{ "vector":{"x":3*cos135, "y":3*sine135}, "emotionId":73, "emotion":"interest", "level":3},
+     "74":{ "vector":{"x":4*cos135, "y":4*sine135}, "emotionId":74, "emotion":"anticipation", "level":1},
+     "75":{ "vector":{"x":5*cos135, "y":5*sine135}, "emotionId":75, "emotion":"anticipation", "level":2},
+     "76":{ "vector":{"x":6*cos135, "y":6*sine135}, "emotionId":76, "emotion":"anticipation", "level":3},
+     "77":{ "vector":{"x":7*cos135, "y":7*sine135}, "emotionId":77, "emotion":"anticipation", "level":4},
+     "78":{ "vector":{"x":8*cos135, "y":8*sine135}, "emotionId":78, "emotion":"anticipation", "level":5},  
+     "79":{ "vector":{"x":9*cos135, "y":9*sine135}, "emotionId":79, "emotion":"vigilance", "level":1},
+     "80":{ "vector":{"x":10*cos135, "y":10*sine135}, "emotionId":80, "emotion":"vigilance", "level":2},
     
-     "81":{ "vector":{"x":1, "y":-1}, "emotionId":81, "emotion":"distraction", "level":1},
-     "82":{ "vector":{"x":2, "y":-2}, "emotionId":82, "emotion":"distraction", "level":2},
-     "83":{ "vector":{"x":3, "y":-3}, "emotionId":83, "emotion":"distraction", "level":3}, 
-     "84":{ "vector":{"x":4, "y":-4}, "emotionId":84, "emotion":"surprise", "level":1},
-     "85":{ "vector":{"x":5, "y":-5}, "emotionId":85, "emotion":"surprise", "level":2},
-     "85":{ "vector":{"x":6, "y":-6}, "emotionId":86, "emotion":"surprise", "level":3},
-     "86":{ "vector":{"x":7, "y":-7}, "emotionId":87, "emotion":"surprise", "level":4},
-     "87":{ "vector":{"x":8, "y":-8}, "emotionId":88, "emotion":"surprise", "level":5},
-     "88":{ "vector":{"x":9, "y":-9}, "emotionId":89, "emotion":"amazement", "level":1},
-     "89":{ "vector":{"x":10, "y":-10}, "emotionId":90, "emotion":"amazement", "level":2}
+     "81":{ "vector":{"x":1*cos315, "y":1*sine315}, "emotionId":81, "emotion":"distraction", "level":1},
+     "82":{ "vector":{"x":2*cos315, "y":2*sine315}, "emotionId":82, "emotion":"distraction", "level":2},
+     "83":{ "vector":{"x":3*cos315, "y":3*sine315}, "emotionId":83, "emotion":"distraction", "level":3}, 
+     "84":{ "vector":{"x":4*cos315, "y":4*sine315}, "emotionId":84, "emotion":"surprise", "level":1},
+     "85":{ "vector":{"x":5*cos315, "y":5*sine315}, "emotionId":85, "emotion":"surprise", "level":2},
+     "85":{ "vector":{"x":6*cos315, "y":6*sine315}, "emotionId":86, "emotion":"surprise", "level":3},
+     "86":{ "vector":{"x":7*cos315, "y":7*sine315}, "emotionId":87, "emotion":"surprise", "level":4},
+     "87":{ "vector":{"x":8*cos315, "y":8*sine315}, "emotionId":88, "emotion":"surprise", "level":5},
+     "88":{ "vector":{"x":9*cos315, "y":9*sine315}, "emotionId":89, "emotion":"amazement", "level":1},
+     "89":{ "vector":{"x":10*cos315, "y":10*sine315}, "emotionId":90, "emotion":"amazement", "level":2}
     
-    
+      "81":{ "vector":{"x":1*cos315, "y":1*sine315}, "emotionId":81, "emotion":"distraction", "level":1}
     
 } ;
         
@@ -224,7 +250,7 @@ var svg = d3.select("body").append("svg")
                                 if(cEmotion && c.CategoryId == cEmotion.categoryId)
                                 {
                                      var emotion =   emotions[cEmotion.emotionId] ;
-                                     categoryNode.name = " " + c.CategoryId + ":" + categoryLabel + cEmotion.emotionId + " :" + emotion.emotion;
+                                     categoryNode.name =  c.CategoryId + " " + emotion.emotion;
                                      categoryNode.emotionId = cEmotion.emotionId ;
                                      categoryNode.emotion = emotion ;
                                 }
@@ -365,15 +391,25 @@ function update(source) {
     
     d3.selectAll('text')
         .attr("text-anchor", function(d) { return d.depth >= maxDepth ?  "start" : "end" ; })
-         .attr("x", function(d) { return  10; })
-         .attr("dy", ".35em")
+         .attr("x", function(d) { 
+            if(d.depth >= maxDepth)
+            {
+                return  10; 
+            }
+            else
+            {
+                return -10 ;
+            }
+        
+        })
+        .attr("dy", ".35em")
         .text(function(d) { 
                           
                                 if(d.depth >= maxDepth)
                                 {
                                        return d.name ;
                                 }
-                                if(d.depth == (maxDepth -1) && d.children)
+                                if(d.depth == (maxDepth -1) )
                                 {
                                     return d.name ;   
                                 }
@@ -537,7 +573,7 @@ function click(d) {
                         // TODO maybe shift to update function?
                         if(categoryNode[0].data.length <= 2) 
                         {
-                         categoryNode[0].name = categoryNode[0].name + " " + dataPoint.Year +":" + dataPoint.WeightedFrequency + " " ;
+                       //  categoryNode[0].name = categoryNode[0].name + " " + dataPoint.Year +":" + dataPoint.WeightedFrequency + " " ;
                         } 
                     }
                      

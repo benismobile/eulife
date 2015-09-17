@@ -1,3 +1,16 @@
+      
+
+var i = 0,
+    duration = 750,
+    rootNode;
+
+var tree = d3.layout.tree() ;
+    
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.y, d.x]; });
+
+
 function update(source) {
 
   // Compute the new tree layout.
@@ -246,4 +259,95 @@ function type(d) {
   d.value = +d.value;
   return d;
 }      
+
+
+var questionNodes = [] ;
+    // process VARIABLES dataset
+ d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/variables?user_key=7a33ae85e08913180dd1bad6a3059acc", function(error, questions) {
+    if (error) throw error;    
+    // process TOPICS dataset
+        d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/topics?user_key=7a33ae85e08913180dd1bad6a3059acc", function(error, topics) {
+            if (error) throw error;
+
+            var topicNodes = [] ;
+            topics.Topics.forEach(function(d) {
+                var topicNode = {};
+                topicNode.name = d.TopicId + ":" + d.TopicValue  ;
+                
+                var variables = questions.Variables ;
+                var questionNodes = [] ;
+                variables.forEach(function(v) {
+               
+                    if (v.Topic != null && v.Topic.TopicId == d.TopicId && v.Topic.TopicId == 16 )
+                    {
+                        var question = v.Question ;
+                        var questionNode = {} ;
+                        questionNode.name = v.VariableId + ":" + question ;
+                        questionNode.variableId = v.VariableId ;
+                        
+                        var categories = v.Categories ;
+                        var categoryNodes = [] ;
+                        categories.forEach(function(c){
+                            
+                            var categoryNode = {} ;
+                            var categoryLabel = c.CategoryLabel ;
+                            
+                            
+                            categoryNode.name = " " + c.CategoryId + ":" + categoryLabel ;
+                            categoryNode.categoryId = c.CategoryId ;
+                            categoryNode.categoryLabel = c.CategoryLabel ;
+                            categoryNode.categoryValue = c.CategoryValue ;
+                           
+                            
+                                cEmotion = categoryEmotions[c.CategoryId] ;
+                                if(cEmotion && c.CategoryId == cEmotion.categoryId)
+                                {
+                                     var emotion =   emotions[cEmotion.emotionId] ;
+                                    categoryNode.name =  c.CategoryValue + " " + emotion.emotion + " \u27A4  \ud83d\ude01";
+                                    // categoryNode.name ='\u27A4  \ud83d\ude01';
+                                     categoryNode.emotionId = cEmotion.emotionId ;
+                                     categoryNode.emotion = emotion ;
+                                }
+                               
+                            
+                                     categoryNodes.push(categoryNode) ; 
+                            
+                            
+                        }) ;
+                        
+                        questionNode.children = categoryNodes ;                        
+                        questionNodes.push(questionNode) ; 
+                        return ;
+                    }
+                }); // ends variables.forEach
+                
+                topicNode.children = questionNodes ;
+                if(d.TopicId == 16)
+                {
+                   topicNodes.push(topicNode) ;
+                }
+            }); // ends Topics.forEach
+                           
+            rootNode = {"name": "Topics", "children": topicNodes } ;               
+            
+           
+            rootNode.x0 = height / 2;
+            rootNode.y0 = 0;
+
+            function collapse(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d._children.forEach(collapse);
+                    d.children = null;
+                }
+            }
+
+            rootNode.children.forEach(collapse);
+            update(rootNode);
+                            
+        }); // ends processing TOPICS data
+     
+ }); // ends processing VARIABLES data
+
+
 

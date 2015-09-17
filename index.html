@@ -3,163 +3,66 @@
 
 <head>
 
- <meta charset="UTF-8">
-   
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/tree.css">
+    <!-- Latest compiled and minified CSS -->
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+ 
 <script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>   
 <script charset="utf-8" src="js/category_emotions.js"></script>
 <script charset="utf-8" src="js/angles.js"></script>
+<script charset="utf-8" src="js/wheel.js"></script>
 <script charset="utf-8" src="js/emotions.js"></script>
+
 <script charset="utf-8" src="js/tree.js"></script> 
+    <!-- Latest compiled and minified JavaScript -->
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     
 </head>
     <body>
         
-        <style>
-
-.node {
-  cursor: pointer;
-}
-
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
-
-.node text {
-  font: 10px sans-serif;
-}
-
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 1.5px;
-}
-
-</style>
+  <div class="container-fluid">
+       <div class="row">
+           <div id="tree" class="col-md-8"></div>
+            <div id="wheel" class="col-md-4"></div>
+        </div>
+  </div> 
         
-    <script>
+  
 
+
+            
+   <script>       
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
     width = 960 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom;
-            
-
-var i = 0,
-    duration = 750,
-    rootNode;
-
-var tree = d3.layout.tree()
-    .size([height, width]);
-
-var diagonal = d3.svg.diagonal()
-    .projection(function(d) { return [d.y, d.x]; });
-
-var svg = d3.select("body").append("svg")
+ 
+tree.size([height, width]);
+        
+var svg = d3.select("#tree").append("svg")
     .attr("width", width + margin.right + margin.left)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-//        http://bl.ocks.org/mbostock/raw/4063550/flare.json
- 
-        
-  
- var questionNodes = [] ;
-    // process VARIABLES dataset
- d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/variables?user_key=7a33ae85e08913180dd1bad6a3059acc", function(error, questions) {
-    if (error) throw error;    
-    // process TOPICS dataset
-        d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/topics?user_key=7a33ae85e08913180dd1bad6a3059acc", function(error, topics) {
-            if (error) throw error;
-
-            var topicNodes = [] ;
-            topics.Topics.forEach(function(d) {
-                var topicNode = {};
-                topicNode.name = d.TopicId + ":" + d.TopicValue  ;
-                
-                var variables = questions.Variables ;
-                var questionNodes = [] ;
-                variables.forEach(function(v) {
-               
-                    if (v.Topic != null && v.Topic.TopicId == d.TopicId && v.Topic.TopicId == 16 )
-                    {
-                        var question = v.Question ;
-                        var questionNode = {} ;
-                        questionNode.name = v.VariableId + ":" + question ;
-                        questionNode.variableId = v.VariableId ;
-                        
-                        var categories = v.Categories ;
-                        var categoryNodes = [] ;
-                        categories.forEach(function(c){
-                            
-                            var categoryNode = {} ;
-                            var categoryLabel = c.CategoryLabel ;
-                            
-                            
-                            categoryNode.name = " " + c.CategoryId + ":" + categoryLabel ;
-                            categoryNode.categoryId = c.CategoryId ;
-                            categoryNode.categoryLabel = c.CategoryLabel ;
-                            categoryNode.categoryValue = c.CategoryValue ;
-                           
-                            
-                                cEmotion = categoryEmotions[c.CategoryId] ;
-                                if(cEmotion && c.CategoryId == cEmotion.categoryId)
-                                {
-                                     var emotion =   emotions[cEmotion.emotionId] ;
-                                    categoryNode.name =  c.CategoryValue + " " + emotion.emotion + " \u27A4  \ud83d\ude01";
-                                    // categoryNode.name ='\u27A4  \ud83d\ude01';
-                                     categoryNode.emotionId = cEmotion.emotionId ;
-                                     categoryNode.emotion = emotion ;
-                                }
-                               
-                            
-                                     categoryNodes.push(categoryNode) ; 
-                            
-                            
-                        }) ;
-                        
-                        questionNode.children = categoryNodes ;                        
-                        questionNodes.push(questionNode) ; 
-                        return ;
-                    }
-                }); // ends variables.forEach
-                
-                topicNode.children = questionNodes ;
-                if(d.TopicId == 16)
-                {
-                   topicNodes.push(topicNode) ;
-                }
-            }); // ends Topics.forEach
-                           
-            rootNode = {"name": "Topics", "children": topicNodes } ;               
-            
-    
-            rootNode.x0 = height / 2;
-            rootNode.y0 = 0;
-
-            function collapse(d) {
-                if (d.children) {
-                    d._children = d.children;
-                    d._children.forEach(collapse);
-                    d.children = null;
-                }
-            }
-
-            rootNode.children.forEach(collapse);
-            update(rootNode);
-            
-                   
-        }); // ends processing TOPICS data
+ var viz = { "width":1000 , 
+               "height":1000 } ;
      
- }); // ends processing VARIABLES data
     
-
+var svgContainer = d3.select("#wheel").append("svg")
+                                   .attr("width", viz.width)
+                                   .attr("height", viz.height);
+  
+ 
  
 </script>
 
-    
+   
 
 </body>
 

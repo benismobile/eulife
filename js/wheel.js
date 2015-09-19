@@ -71,7 +71,7 @@ var wheelColors = [
             pathCommand = pathCommand + " A " + r1 + " " + r1 +" 0 0 0 " + (centerX + lastCircumfrancePoint.deltaX) + " " + (centerY + lastCircumfrancePoint.deltaY );
            
              var segmentGroup = svgContainer.append("g")
-                 .attr("class","whlsegment")
+                 .attr("class",function(){ return "whlsegment" + (section-1)})
                  .attr("id", function (d) { return emotionalStates[section-1][0] ; })  ;
             
             
@@ -81,7 +81,16 @@ var wheelColors = [
                  .attr("stroke", "black")
                  .attr("stroke-width", "2")
                  .attr("fill", wheelColors[section-2]  ) 
-                 .attr("opacity", "0.85") ;
+                 .attr("opacity", "0.85") 
+                 .on("mouseover", function(d) { 
+                  
+                     var segment = d3.select(this.parentNode) ;
+                     segmentFocus(segment, 0.9) ; 
+                 })
+                 .on("mouseout", function(d) { 
+                     var segment = d3.select(this.parentNode) ;
+                     segmentUnFocus(segment,0.5) ;
+                 });
                       
              var txt = segmentGroup.append("text")
                  .attr("font","Ariel")
@@ -90,7 +99,16 @@ var wheelColors = [
                  .attr("text-anchor", "middle")
                  .attr("font-size", "12px")
                  .attr("style", "fill-opacity:1;")
-                 .text( function (d) { return emotionalStates[section-1][0] ; }) ;
+                 .text( function (d) { return emotionalStates[section-1][0] ; }) 
+                 .on("mouseover", function(d) { 
+                  
+                     var segment = d3.select(this.parentNode) ;
+                     segmentFocus(segment, 0.9) ; 
+                 })
+                 .on("mouseout", function(d) { 
+                     var segment = d3.select(this.parentNode) ;
+                     segmentUnFocus(segment,0.5) ;
+                 });
             
             
             
@@ -118,7 +136,7 @@ var wheelColors = [
            
             
              var segmentGroup = svgContainer.append("g")
-                 .attr("class","whlsegment")
+                 .attr("class",function(){ return "whlsegment" + (section-1)  })
                  .attr("id", function (d) { return emotionalStates[section-1][1] ; })  ;
             
             
@@ -127,7 +145,16 @@ var wheelColors = [
                  .attr("stroke", "black")
                  .attr("stroke-width", "2")
                  .attr("fill", wheelColors[section-2] ) 
-                 .attr("opacity", "0.75") ;
+                 .attr("opacity", "0.75") 
+                 .on("mouseover", function(d) { 
+                  
+                     var segment = d3.select(this.parentNode) ;
+                     segmentFocus(segment, 0.9) ; 
+                 })
+                 .on("mouseout", function(d) { 
+                     var segment = d3.select(this.parentNode) ;
+                     segmentUnFocus(segment,0.5) ;
+                 });
             
               var txt = segmentGroup.append("text")
                  .attr("font","Ariel")
@@ -137,7 +164,16 @@ var wheelColors = [
                  .attr("font-size", "12px")
                  .attr("style", "fill-opacity:1;")
                  .attr("fill", "black")
-                 .text( function (d) { return emotionalStates[section-1][1] ; }) ;
+                 .text( function (d) { return emotionalStates[section-1][1] ; }) 
+                 .on("mouseover", function(d) { 
+                  
+                     var segment = d3.select(this.parentNode) ;
+                     segmentFocus(segment, 0.9) ; 
+                 })
+                 .on("mouseout", function(d) { 
+                     var segment = d3.select(this.parentNode) ;
+                     segmentUnFocus(segment,0.5) ;
+                 });
             
             
             
@@ -166,26 +202,54 @@ var wheelColors = [
             
             
             var segmentGroup = svgContainer.append("g")
-                 .attr("class","whlsegment")
-                 .attr("id", function (d) { return emotionalStates[section-1][2] ; })  ;
+                  .attr("class",function(){ return "whlsegment" + (section-1)})
+                 .attr("id", function (d) { return emotionalStates[section-1][2] ; }) ;   
+                 
+           
             
-             svgContainer.append("path")
+            ;
+            
+           
+            
+             segmentGroup.append("path")
                  .attr("d", pathCommand3)
                  .attr("stroke", "black")
                  .attr("stroke-width", "2")
                  .attr("fill", wheelColors[section-2] ) 
-                 .attr("opacity", "0.5") ;
+                 .attr("opacity", "0.5")
+                 .on("mouseover", function(d) { 
+                  
+                     var segment = d3.select(this.parentNode) ;
+                     segmentFocus(segment, 0.9) ; 
+                 })
+                 .on("mouseout", function(d) { 
+                     var segment = d3.select(this.parentNode) ;
+                     segmentUnFocus(segment,0.5) ;
+                 });
+             
             
-             var txt = segmentGroup.append("text")
+           
+              var txt = segmentGroup.append("text")
                  .attr("font","Ariel")
                  .attr("x", function(d){return "" + (centerX + deltaOffsetXr3Txt ) })
                  .attr("y", function(d){return "" + (centerY + deltaOffsetYr3Txt ) })
                  .attr("text-anchor", "middle")
                  .attr("font-size", "12px")
-                 .attr("style", "fill-opacity:1;")
+                 .attr("style", "fill-opacity:1.0;")
                  .attr("fill", "black")
-                 .text( function (d) { return emotionalStates[section-1][2] ; }) ;
+                 .text( function (d) { return emotionalStates[section-1][2] ; }) 
+                 .on("mouseover", function(d) { 
+                  
+                     var segment = d3.select(this.parentNode) ;
+                     segmentFocus(segment, 0.9) ; 
+                 })
+                 .on("mouseout", function(d) { 
+                     var segment = d3.select(this.parentNode) ;
+                     segmentUnFocus(segment,0.5) ;
+                 });
             
+            
+             
             
             
             r4OffsetAngle = Math.PI / 8 ;
@@ -201,39 +265,23 @@ var wheelColors = [
             
             
               var segmentGroup = svgContainer.append("g")
-                 .attr("class","whlsegment")
+                  .attr("class",function(){ return "whlsegment" + (section-1)})
                  .attr("id", function (d) { return emotionalStates[section-1][2] ; })  ;
          
                 
-                                           
+                     
+            
+            
              var path = segmentGroup.append("path")
                  .attr("d", pathCommand4)
                  .attr("stroke", "black")
                  .attr("stroke-width", "2")
                  .attr("fill", wheelColors[section-2] ) 
-                 .attr("opacity", "0.25")
-                 .on("mouseover", function(d) { 
-                     var segment = d3.select(this)
-                         segment.transition()
-                                .duration(500)
-                                .ease("linear")
-                                .attr("stroke-width", "5")
-                                .attr("opacity", "1.0") ; }
-                    
-                    
-                    )
-                  .on("mouseout", function(d) { 
-                     var segment = d3.select(this)
-                         segment.transition()
-                                .duration(500)
-                                .ease("linear")
-                                .attr("stroke-width", "2")
-                                .attr("opacity", "0.25") ;; }
-                    
-                    
-                    );
+                 .attr("opacity", "0.25");
+                 
             
              
+            
              
         }
          
@@ -243,4 +291,58 @@ var wheelColors = [
          lastSectionAngleShifted = sectionAngleShifted ;
       
      }
+    
+    function segmentFocus(segment, opacity)
+    {
+        
+        var segmentPath = segment.select("path") ;
+                                    
+        segmentPath.transition()
+                                .duration(250)
+                                .ease("linear")
+                                .attr("stroke-width", "4")
+                               .attr("opacity", opacity) ;
+        
+    // clear other text in this group to give space for text animation       
+        var segments = d3.selectAll( ("." +        segment.attr("class"))).select("text").attr("fill","none") ;
+				
+     
+					 
+       var segmentText = segment.select("text") ;
+       segmentText.transition()
+                .duration(250)
+                .ease("linear")
+                .attr("font-size","20px")
+                .attr("fill","black")
+                .attr("opacity", opacity) ;
+        
+    }
+    
+    
+    
+    function segmentUnFocus(segment,opacity)
+    {
+        
+        var segmentPath = segment.select("path") ;
+        segmentPath.transition()
+                                .duration(250)
+                                .ease("linear")
+                                .attr("stroke-width", "2")
+                                .attr("opacity", opacity) ;
+        
+        
+       var segmentText = segment.select("text") ;
+       segmentText.transition()
+                .duration(250)
+                .ease("linear")
+                .attr("font-size","12px") 
+                .attr("opacity", opacity) ;
+        
+        
+        
+        // restore text in this group     
+        var segments = d3.selectAll( ("." +        segment.attr("class"))).select("text").attr("fill","black") ;
+		
+        
+    }
 }

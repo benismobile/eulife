@@ -19,17 +19,23 @@ var wheelColors = [
          "green",
          "lightseagreen"
          ];
-     /*
-     var r1 = 100 ; 
-     var r2 = 150 ;
-     var r3 = 200 ;
-     var r4 = 250 ;
-     */
+
+    var emotionalStates = {
      
-     var r1 = viz.width * (1/5) ; 
-     var r2 = viz.width * (1.5 / 5 ) ;
-     var r3 = viz.width * (2/5) ;
-     var r4 = viz.width / 2 ;
+        "1":["grief","sadness","pensieveness"], 
+        "2":["loathing","disgust","boredom"], 
+        "3":["rage","anger","annoyance"], 
+        "4":["vigilance","anticipation","interest"], 
+        "5":["ectasy","joy","serenity"],
+        "6":["admiration","trust","acceptance"], 
+        "7":["terror","fear","apprehension"], 
+        "8":["amazement", "surprise", "fear"]
+    }
+     
+     var r1 = (viz.width * (1/5)) - 5 ; 
+     var r2 = viz.width * (1.5 / 5) - 5  ;
+     var r3 = viz.width * (2/5) - 5 ;
+     var r4 = viz.width * (2.5/5)  - 5;
     
      var pathCommand = "" ;
      
@@ -50,7 +56,12 @@ var wheelColors = [
         sectionAngleShifted = sectionAngle + (Math.PI/8) ;
         var deltaX =  Math.cos(sectionAngleShifted) * r1 ;
         var deltaY =  Math.sin(sectionAngleShifted) * r1 ;
-     
+        
+        // get pie segment center for text postioning
+        var deltaXTxt =  Math.cos(sectionAngle) * (r1/1.35) ;
+        var deltaYTxt =  Math.sin(sectionAngle) * (r1/1.35) ;
+      
+         
          // drae line from centre point to the point on circle defined by segment angle and radius of pie
         pathCommand = pathCommand + " L " + (centerX + deltaX ) + " " + (centerY + deltaY) ;
          
@@ -59,18 +70,42 @@ var wheelColors = [
         {
             pathCommand = pathCommand + " A " + r1 + " " + r1 +" 0 0 0 " + (centerX + lastCircumfrancePoint.deltaX) + " " + (centerY + lastCircumfrancePoint.deltaY );
            
+             var segmentGroup = svgContainer.append("g")
+                 .attr("class","whlsegment")
+                 .attr("id", function (d) { return emotionalStates[section-1][0] ; })  ;
+            
+            
                // add path to svg element
-             svgContainer.append("path")
+             segmentGroup.append("path")
                  .attr("d", pathCommand)
                  .attr("stroke", "black")
                  .attr("stroke-width", "2")
                  .attr("fill", wheelColors[section-2]  ) 
                  .attr("opacity", "0.85") ;
+                      
+             var txt = segmentGroup.append("text")
+                 .attr("font","Ariel")
+                 .attr("x", function(d){return "" + (centerX + deltaXTxt ) })
+                 .attr("y", function(d){return "" + (centerY + deltaYTxt )  })
+                 .attr("text-anchor", "middle")
+                 .attr("font-size", "12px")
+                 .attr("style", "fill-opacity:1;")
+                 .text( function (d) { return emotionalStates[section-1][0] ; }) ;
+            
+            
             
             
             r2OffsetAngle = Math.PI / 24 ;
             var deltaOffsetXr2 =  Math.cos(sectionAngleShifted - r2OffsetAngle) * r2 ;
             var deltaOffsetYr2 =  Math.sin(sectionAngleShifted - r2OffsetAngle ) * r2 ;
+            
+            //offset to center text
+            var sectionCenterRadius = r1 + ((r2-r1)/2) ;
+        
+            var deltaOffsetXr2Txt =  Math.cos(sectionAngle) * sectionCenterRadius ;
+            var deltaOffsetYr2Txt =  Math.sin(sectionAngle) * sectionCenterRadius ;
+            
+            
             var lastDeltaOffsetXr2 =  Math.cos(lastSectionAngleShifted + r2OffsetAngle) * r2 ;
             var lastDeltaOffsetYr2 =  Math.sin(lastSectionAngleShifted + r2OffsetAngle ) * r2 ;
             
@@ -81,12 +116,30 @@ var wheelColors = [
                 " L " + (centerX + lastCircumfrancePoint.deltaX  ) + " " + (centerY + lastCircumfrancePoint.deltaY  ) +
                 " A " + r1 + " " + r1 +" 0 0 1 " + (centerX + deltaX) + " " + (centerY + deltaY );
            
-            svgContainer.append("path")
+            
+             var segmentGroup = svgContainer.append("g")
+                 .attr("class","whlsegment")
+                 .attr("id", function (d) { return emotionalStates[section-1][1] ; })  ;
+            
+            
+            segmentGroup.append("path")
                  .attr("d", pathCommand2)
                  .attr("stroke", "black")
                  .attr("stroke-width", "2")
                  .attr("fill", wheelColors[section-2] ) 
                  .attr("opacity", "0.75") ;
+            
+              var txt = segmentGroup.append("text")
+                 .attr("font","Ariel")
+                 .attr("x", function(d){return "" + (centerX + deltaOffsetXr2Txt ) })
+                 .attr("y", function(d){return "" + (centerY + deltaOffsetYr2Txt ) })
+                 .attr("text-anchor", "middle")
+                 .attr("font-size", "12px")
+                 .attr("style", "fill-opacity:1;")
+                 .attr("fill", "black")
+                 .text( function (d) { return emotionalStates[section-1][1] ; }) ;
+            
+            
             
             
              r3OffsetAngle = Math.PI / 12 ;
@@ -94,6 +147,13 @@ var wheelColors = [
             var deltaOffsetYr3 =  Math.sin(sectionAngleShifted - r3OffsetAngle ) * r3 ;
             var lastDeltaOffsetXr3 =  Math.cos(lastSectionAngleShifted + r3OffsetAngle) * r3 ;
             var lastDeltaOffsetYr3 =  Math.sin(lastSectionAngleShifted + r3OffsetAngle ) * r3 ;
+            
+            
+            //offset to center text
+            var sectionCenterRadius = r2 + ((r3-r2)/2) ;
+        
+            var deltaOffsetXr3Txt =  Math.cos(sectionAngle) * sectionCenterRadius ;
+            var deltaOffsetYr3Txt =  Math.sin(sectionAngle) * sectionCenterRadius ;
             
             
             var pathCommand3 = "M " + (centerX + deltaOffsetXr2 ) + " " + (centerY + deltaOffsetYr2 ) +
@@ -105,12 +165,27 @@ var wheelColors = [
                 ;
             
             
+            var segmentGroup = svgContainer.append("g")
+                 .attr("class","whlsegment")
+                 .attr("id", function (d) { return emotionalStates[section-1][2] ; })  ;
+            
              svgContainer.append("path")
                  .attr("d", pathCommand3)
                  .attr("stroke", "black")
                  .attr("stroke-width", "2")
                  .attr("fill", wheelColors[section-2] ) 
                  .attr("opacity", "0.5") ;
+            
+             var txt = segmentGroup.append("text")
+                 .attr("font","Ariel")
+                 .attr("x", function(d){return "" + (centerX + deltaOffsetXr3Txt ) })
+                 .attr("y", function(d){return "" + (centerY + deltaOffsetYr3Txt ) })
+                 .attr("text-anchor", "middle")
+                 .attr("font-size", "12px")
+                 .attr("style", "fill-opacity:1;")
+                 .attr("fill", "black")
+                 .text( function (d) { return emotionalStates[section-1][2] ; }) ;
+            
             
             
             r4OffsetAngle = Math.PI / 8 ;
@@ -124,7 +199,14 @@ var wheelColors = [
                 " L " +  (centerX + lastDeltaOffsetXr3) + " " + (centerY + lastDeltaOffsetYr3 ) + 
                 " A " + r3 + " " + r3 +" 0 0 1 " + (centerX + deltaOffsetXr3) + " " + (centerY + deltaOffsetYr3) ;
             
-             var path = svgContainer.append("path")
+            
+              var segmentGroup = svgContainer.append("g")
+                 .attr("class","whlsegment")
+                 .attr("id", function (d) { return emotionalStates[section-1][2] ; })  ;
+         
+                
+                                           
+             var path = segmentGroup.append("path")
                  .attr("d", pathCommand4)
                  .attr("stroke", "black")
                  .attr("stroke-width", "2")

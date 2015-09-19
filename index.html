@@ -29,9 +29,9 @@
   <div class="container-fluid">
        <div class="row">
     
-           <div id="tree"  class="col-lg-8"></div>
+           <div id="tree"  class="col-lg-6"></div>
            
-           <div id="wheel" class="col-lg-4"></div>
+           <div id="wheel" class="col-lg-6"></div>
            
         </div>
     
@@ -42,8 +42,8 @@
             
    <script>       
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
-    width = 760 - margin.right - margin.left,
-    height = 600 - margin.top - margin.bottom;
+    width = 585 - margin.right - margin.left,
+    height = 500 - margin.top - margin.bottom;
 
        /*
 var diameter = 960;
@@ -71,8 +71,8 @@ var svg = d3.select("#tree").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
        
-  var viz = { "width":380 , 
-            "height":380 } ;       
+  var viz = { "width":600 , 
+            "height":600 } ;       
  drawWheel(viz) ;
  
 </script>

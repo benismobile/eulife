@@ -110,7 +110,7 @@ function update(source) {
       .remove();
 
     
-    d3.selectAll('text')
+    d3.selectAll('.node').select("text")
         .attr("text-anchor", function(d) { return d.depth >= maxDepth ?  "start" : "end" ; })
          .attr("x", function(d) { 
             if(d.depth >= maxDepth)

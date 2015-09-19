@@ -25,40 +25,55 @@
     
 </head>
     <body>
-        
+       
   <div class="container-fluid">
        <div class="row">
-           <div id="tree" class="col-md-8"></div>
-            <div id="wheel" class="col-md-4"></div>
+    
+           <div id="tree"  class="col-lg-8"></div>
+           
+           <div id="wheel" class="col-lg-4"></div>
+           
         </div>
+    
   </div> 
-        
-  
-
+       
+    
 
             
    <script>       
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
-    width = 960 - margin.right - margin.left,
-    height = 800 - margin.top - margin.bottom;
- 
+    width = 760 - margin.right - margin.left,
+    height = 600 - margin.top - margin.bottom;
+
+       /*
+var diameter = 960;
+
+var tree = d3.layout.tree()
+    .size([360, diameter / 2 - 120])
+    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
+
+var diagonal = d3.svg.diagonal.radial()
+    .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
+
+var svg = d3.select("#wheel").append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter - 150)
+  .append("g")
+    .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+       */
+
 tree.size([height, width]);
-        
+       
 var svg = d3.select("#tree").append("svg")
     .attr("width", width + margin.right + margin.left)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
- var viz = { "width":1000 , 
-               "height":1000 } ;
-     
-    
-var svgContainer = d3.select("#wheel").append("svg")
-                                   .attr("width", viz.width)
-                                   .attr("height", viz.height);
-  
- 
+       
+  var viz = { "width":380 , 
+            "height":380 } ;       
+ drawWheel(viz) ;
  
 </script>
 

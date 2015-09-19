@@ -10,6 +10,18 @@ var tree = d3.layout.tree() ;
 var diagonal = d3.svg.diagonal()
     .projection(function(d) { return [d.y, d.x]; });
 
+var margin = {top: 20, right: 120, bottom: 20, left: 120},
+    width = 960 - margin.right - margin.left,
+    height = 800 - margin.top - margin.bottom;
+ 
+ tree.size([height, width]);
+        
+ var svg = d3.select("#tree").append("svg")
+    .attr("width", width + margin.right + margin.left)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
 
 function update(source) {
 
@@ -112,7 +124,7 @@ function update(source) {
         
         })
         .attr("dy", ".35em")
-        .html(function(d) { 
+        .text(function(d) { 
                           
                                 if(d.depth >= maxDepth)
                                 {

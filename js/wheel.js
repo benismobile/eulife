@@ -1,7 +1,14 @@
-var viz = { "width":1000 , 
-               "height":1000 } ;
-     
 
+function drawWheel(viz)
+{
+
+
+
+var svgContainer = d3.select("#wheel").append("svg")
+                                    .attr("width", viz.width)
+                                   .attr("height", viz.height);      
+    
+    
 var wheelColors = [
          "blue",
          "purple",
@@ -12,11 +19,18 @@ var wheelColors = [
          "green",
          "lightseagreen"
          ];
-     
-     var r1 = 100 ;
+     /*
+     var r1 = 100 ; 
      var r2 = 150 ;
      var r3 = 200 ;
      var r4 = 250 ;
+     */
+     
+     var r1 = viz.width * (1/5) ; 
+     var r2 = viz.width * (1.5 / 5 ) ;
+     var r3 = viz.width * (2/5) ;
+     var r4 = viz.width / 2 ;
+    
      var pathCommand = "" ;
      
      var centerX = (viz.width / 2) ;
@@ -44,9 +58,9 @@ var wheelColors = [
         if(section > 1)
         {
             pathCommand = pathCommand + " A " + r1 + " " + r1 +" 0 0 0 " + (centerX + lastCircumfrancePoint.deltaX) + " " + (centerY + lastCircumfrancePoint.deltaY );
-              
+           
                // add path to svg element
-        svgContainer.append("path")
+             svgContainer.append("path")
                  .attr("d", pathCommand)
                  .attr("stroke", "black")
                  .attr("stroke-width", "2")
@@ -147,3 +161,4 @@ var wheelColors = [
          lastSectionAngleShifted = sectionAngleShifted ;
       
      }
+}

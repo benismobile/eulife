@@ -89,7 +89,7 @@ var wheelColors = [
                  })
                  .on("mouseout", function(d) { 
                      var segment = d3.select(this.parentNode) ;
-                     segmentUnFocus(segment,0.5) ;
+                     segmentUnFocus(segment,0.85) ;
                  });
                       
              var txt = segmentGroup.append("text")
@@ -107,7 +107,7 @@ var wheelColors = [
                  })
                  .on("mouseout", function(d) { 
                      var segment = d3.select(this.parentNode) ;
-                     segmentUnFocus(segment,0.5) ;
+                     segmentUnFocus(segment,0.85) ;
                  });
             
             
@@ -153,7 +153,7 @@ var wheelColors = [
                  })
                  .on("mouseout", function(d) { 
                      var segment = d3.select(this.parentNode) ;
-                     segmentUnFocus(segment,0.5) ;
+                     segmentUnFocus(segment,0.75) ;
                  });
             
               var txt = segmentGroup.append("text")
@@ -172,7 +172,7 @@ var wheelColors = [
                  })
                  .on("mouseout", function(d) { 
                      var segment = d3.select(this.parentNode) ;
-                     segmentUnFocus(segment,0.5) ;
+                     segmentUnFocus(segment,0.75) ;
                  });
             
             
@@ -314,7 +314,7 @@ var wheelColors = [
                 .ease("linear")
                 .attr("font-size","20px")
                 .attr("fill","black")
-                .attr("opacity", opacity) ;
+                .attr("opacity", 1.0) ;
         
     }
     
@@ -336,7 +336,7 @@ var wheelColors = [
                 .duration(250)
                 .ease("linear")
                 .attr("font-size","12px") 
-                .attr("opacity", opacity) ;
+                .attr("opacity", 1.0) ;
         
         
         

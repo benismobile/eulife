@@ -8,6 +8,10 @@ var svgContainer = d3.select("#wheel").append("svg")
                                     .attr("width", viz.width)
                                    .attr("height", viz.height);      
     
+
+    
+var defs = svgContainer.append("defs") ;
+                
     
 var wheelColors = [
          "blue",
@@ -29,8 +33,32 @@ var wheelColors = [
         "5":["ectasy","joy","serenity"],
         "6":["admiration","trust","acceptance"], 
         "7":["terror","fear","apprehension"], 
-        "8":["amazement", "surprise", "fear"]
-    }
+        "8":["amazement", "surprise", "distraction"]
+    };
+    
+    var blendedStates = {
+     
+        "1":["remorse", "sadness","disgust"], 
+        "2":["contempt","disgust", "anger"], 
+        "3":["aggressiveness", "anger", "anticipation"], 
+        "4":["optimism", "anticipation","joy"], 
+        "5":["love", "joy", "trust"],
+        "6":["submission", "trust", "fear"], 
+        "7":["awe", "fear", "surprise"], 
+        "8":["disapproval", "surprise", "sadness"]
+    };
+    
+     var blendedStateComponents = {
+     
+        "remorse":["sadness","disgust"], 
+        "contempt":["disgust", "anger"], 
+        "aggressiveness":["anger", "anticipation"], 
+        "optimism":["anticipation","joy"], 
+        "love":["joy", "trust"],
+        "submission":["trust", "fear"], 
+        "awe":["fear", "surprise"], 
+        "disapproval":["surprise", "sadness"]
+    };
      
      var r1 = (viz.width * (1/5)) - 5 ; 
      var r2 = viz.width * (1.5 / 5) - 5  ;
@@ -113,6 +141,8 @@ var wheelColors = [
             
             
             
+            
+            
             r2OffsetAngle = Math.PI / 24 ;
             var deltaOffsetXr2 =  Math.cos(sectionAngleShifted - r2OffsetAngle) * r2 ;
             var deltaOffsetYr2 =  Math.sin(sectionAngleShifted - r2OffsetAngle ) * r2 ;
@@ -174,6 +204,65 @@ var wheelColors = [
                      var segment = d3.select(this.parentNode) ;
                      segmentUnFocus(segment,0.75) ;
                  });
+            
+        
+            
+            
+                 
+            // draw text path for blended emotion
+            
+             var blendLineX =  Math.cos(sectionAngleShifted) * r4 ;
+             var blendLineY =  Math.sin(sectionAngleShifted) * r4 ;
+             var startOffset = "50%" ;
+             if(section > 5)
+             {
+                pathCommand = "M " + centerX + " " + centerY  ;
+                pathCommand = pathCommand + " L " + (centerX + blendLineX ) + " " + (centerY + blendLineY) ;
+                startOffset = "70%" ;     
+             }
+             else
+             {
+                pathCommand = "M " + (centerX + blendLineX ) + " " + (centerY + blendLineY)  ;
+                pathCommand = pathCommand + " L " +  centerX + " " + centerY  ;
+                startOffset = "10%" ;
+             }
+            
+            /*
+             svgContainer.append("path")
+                 .attr("d", pathCommand ) 
+                 .attr("stroke", "black")
+                 .attr("stroke-width", "2") ;
+            */
+               // add path to defs element
+             defs.append("path")
+                 .attr("d", pathCommand)
+                 .attr("id", function (d) { return blendedStates[section-1][0] + "Path" ; }) ;
+            
+          //  var segmentGroup = svgContainer.append("g")
+         //         .attr("class",function(){ return "whlsegment" + (section-1)})
+        //         .attr("id", function (d) { return emotionalStates[section-1][0] ; })  ;
+           
+             var txtPath = segmentGroup.append("text")
+                 .attr("font","Ariel") 
+                 .attr("font-size", "12px")
+                 .attr("id", function (d) { return blendedStates[section-1][0] ; })
+                 .on("mouseover", function(d) { 
+                  
+                     var segment = d3.select(this.parentNode) ;
+                     blendedFocus(this, 0.9) ; 
+                 })
+                 .on("mouseout", function(d) { 
+                     var segment = d3.select(this.parentNode) ;
+                     blendedUnFocus(this,0.85) ;
+                 });
+                 
+            
+             txtPath.append("textPath")
+               .attr("xlink:href", function (d) { return "#" + blendedStates[section-1][0] + "Path" ; })
+               .attr("startOffset", startOffset)
+               .text( function (d) { return blendedStates[section-1][0] ; }) ;
+                
+               
             
             
             
@@ -292,6 +381,94 @@ var wheelColors = [
       
      }
     
+    
+    function blendedFocus(blendTxtNode, opacity)
+    {
+    
+        
+        
+        var blendedNodeId = d3.select(blendTxtNode).attr("id") ;
+        var blendedComponent1 = blendedStateComponents[""+blendedNodeId][0];
+        var blendedComponent2 = blendedStateComponents[""+blendedNodeId][1];
+        var component1 = d3.select("#" + blendedComponent1) ;
+        var component2 = d3.select("#" + blendedComponent2) ;
+        
+       d3.selectAll("text").attr("fill","none") ;    
+       var segmentText = component1.select("text") ;
+       segmentText.transition()
+                .duration(250)
+                .ease("linear")
+                .attr("font-size","20px")
+                .attr("fill","black")
+                .attr("opacity", 1.0) ;
+        
+       var segmentText2 = component2.select("text") ;
+       segmentText2.transition()
+                .duration(250)
+                .delay(250)
+                .ease("linear")
+                .attr("font-size","20px")
+                .attr("fill","black")
+                .attr("opacity", 1.0) ;
+        
+        
+        
+        d3.select(blendTxtNode).transition()
+                .duration(250)
+                .delay(500)
+                .ease("linear")
+                .attr("font-size","20px")
+                .attr("fill","black")
+                .attr("opacity", 1.0) ;
+        
+    }
+    
+    
+    function blendedUnFocus(blendTxtNode, opacity)
+    {
+    
+        
+        
+        var blendedNodeId = d3.select(blendTxtNode).attr("id") ;
+        var blendedComponent1 = blendedStateComponents[""+blendedNodeId][0];
+        var blendedComponent2 = blendedStateComponents[""+blendedNodeId][1];
+        var component1 = d3.select("#" + blendedComponent1) ;
+        var component2 = d3.select("#" + blendedComponent2) ;
+        
+       var segmentText = component1.select("text") ;
+       segmentText.transition()
+                .duration(750)
+                .ease("linear")
+                .attr("font-size","12px")
+                .attr("fill","black")
+                .attr("opacity", opacity) ;
+        
+       var segmentText2 = component2.select("text") ;
+       segmentText2.transition()
+                .duration(500)
+                .delay(250)
+    
+                .ease("linear")
+                .attr("font-size","12px")
+                .attr("fill","black")
+                .attr("opacity", opacity) ;
+        
+        
+        
+        d3.select(blendTxtNode).transition()
+                .duration(250)
+                .delay(500)
+                .ease("linear")
+                .attr("font-size","12px")
+                .attr("fill","black")
+                .attr("opacity", 1.0) ;
+        
+		d3.selectAll("text").attr("fill","none").attr("fill","black") ; 
+        
+    }
+    
+    
+    
     function segmentFocus(segment, opacity)
     {
         
@@ -304,9 +481,9 @@ var wheelColors = [
                                .attr("opacity", opacity) ;
         
     // clear other text in this group to give space for text animation       
-        var segments = d3.selectAll( ("." +        segment.attr("class"))).select("text").attr("fill","none") ;
+      var segments = d3.selectAll( ("." +        segment.attr("class"))).select("text").attr("fill","none") ;
 				
-     
+       // d3.selectAll("text").attr("fill","none") ;
 					 
        var segmentText = segment.select("text") ;
        segmentText.transition()
@@ -342,7 +519,8 @@ var wheelColors = [
         
         // restore text in this group     
         var segments = d3.selectAll( ("." +        segment.attr("class"))).select("text").attr("fill","black") ;
-		
+        
+	//	d3.selectAll("text").attr("fill","none").attr("fill","black") ; 
         
     }
 }

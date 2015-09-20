@@ -139,7 +139,7 @@ function update(source) {
                                     return "" ;   
                                 }
                                     
-                          }) ; 
+                          });
     
    // calculate emotions
  
@@ -244,7 +244,7 @@ function click(d) {
   function wrap(text, width) {
       width = width + 10 ;
   text.each(function() {
-    var text = d3.select(this),
+     var text = d3.select(this),
         words = text.text().split(/\s+/).reverse(),
         word,
         line = [],
@@ -282,12 +282,13 @@ var questionNodes = [] ;
             if (error) throw error;
 
             var topicNodes = [] ;
+            var questionNodes = [] ;
             topics.Topics.forEach(function(d) {
                 var topicNode = {};
                 topicNode.name = d.TopicId + ":" + d.TopicValue  ;
                 
                 var variables = questions.Variables ;
-                var questionNodes = [] ;
+                
                 variables.forEach(function(v) {
                
                     if (v.Topic != null && v.Topic.TopicId == d.TopicId && v.Topic.TopicId == 16 )
@@ -327,8 +328,13 @@ var questionNodes = [] ;
                             
                         }) ;
                         
-                        questionNode.children = categoryNodes ;                        
-                        questionNodes.push(questionNode) ; 
+                        questionNode.children = categoryNodes ; 
+                        
+                        if(questionFilter.indexOf(questionNode.variableId) > -1)
+                        {
+                            questionNodes.push(questionNode) ; 
+                        }
+                        
                         return ;
                     }
                 }); // ends variables.forEach
@@ -340,7 +346,7 @@ var questionNodes = [] ;
                 }
             }); // ends Topics.forEach
                            
-            rootNode = {"name": "Topics", "children": topicNodes } ;               
+            rootNode = {"name": "Questions", "children": questionNodes } ;               
             
            
             rootNode.x0 = height / 2;

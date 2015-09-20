@@ -165,7 +165,8 @@ function update(source) {
   var closestEmotion2011 = findClosestEmotion(derivedEmotion2011) ;
    console.log("closest emotion (2011):" + closestEmotion2011.emotion + " level:" +  closestEmotion2011.level) ; 
         
-
+  var closestSelection = d3.select("#" + closestEmotion2011.emotion) ;
+  segmentFocus(closestSelection, 1.0) ;
     
   // Stash the old positions for transition.
   nodes.forEach(function(d) {

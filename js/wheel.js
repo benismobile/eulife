@@ -1,18 +1,3 @@
-
-function drawWheel(viz)
-{
-
-
-
-var svgContainer = d3.select("#wheel").append("svg")
-                                    .attr("width", viz.width)
-                                   .attr("height", viz.height);      
-    
-
-    
-var defs = svgContainer.append("defs") ;
-                
-    
 var wheelColors = [
          "blue",
          "purple",
@@ -60,6 +45,23 @@ var wheelColors = [
         "disapproval":["surprise", "sadness"]
     };
      
+
+
+function drawWheel(viz)
+{
+
+
+
+var svgContainer = d3.select("#wheel").append("svg")
+                                    .attr("width", viz.width)
+                                   .attr("height", viz.height);      
+    
+
+    
+var defs = svgContainer.append("defs") ;
+                
+    
+
      var r1 = (viz.width * (1/5)) - 5 ; 
      var r2 = viz.width * (1.5 / 5) - 5  ;
      var r3 = viz.width * (2/5) - 5 ;
@@ -380,7 +382,7 @@ var wheelColors = [
          lastSectionAngleShifted = sectionAngleShifted ;
       
      }
-    
+  } // ends fuction draw wheel  
     
     function blendedFocus(blendTxtNode, opacity)
     {
@@ -471,7 +473,7 @@ var wheelColors = [
     
     
     
-    function segmentFocus(segment, opacity)
+    function segmentFocus (segment, opacity)
     {
         
         var segmentPath = segment.select("path") ;
@@ -525,4 +527,3 @@ var wheelColors = [
 	//	d3.selectAll("text").attr("fill","none").attr("fill","black") ; 
         
     }
-}

@@ -250,11 +250,11 @@ var defs = svgContainer.append("defs") ;
                  .attr("id", function (d) { return blendedStates[section-1][0] ; })
                  .on("mouseover", function(d) { 
                   
-                     var segment = d3.select(this.parentNode) ;
+                    // var segment = d3.select(this.parentNode) ;
                      blendedFocus(this, 0.9) ; 
                  })
                  .on("mouseout", function(d) { 
-                     var segment = d3.select(this.parentNode) ;
+                    // var segment = d3.select(this.parentNode) ;
                      blendedUnFocus(this,0.85) ;
                  });
                  
@@ -384,6 +384,46 @@ var defs = svgContainer.append("defs") ;
      }
   } // ends fuction draw wheel  
     
+    function blendedFocusSelected(blendTxtNode, opacity)
+    {
+        var blendedNodeId = blendTxtNode.attr("id") ;
+        console.log("blendTxtNode:" + blendedNodeId ) ; 
+        
+         
+        var blendedComponent1 = blendedStateComponents[""+blendedNodeId][0];
+        var blendedComponent2 = blendedStateComponents[""+blendedNodeId][1];
+        var component1 = d3.select("#" + blendedComponent1) ;
+        var component2 = d3.select("#" + blendedComponent2) ;
+        
+      
+       var segmentText = component1.select("text") ;
+       segmentText.transition()
+                .duration(1000)
+                .ease("linear")
+                .attr("font-size","24px")
+                .attr("fill","black")
+                .attr("opacity", 1.0) ;
+        
+       var segmentText2 = component2.select("text") ;
+       segmentText2.transition()
+                .duration(1000)
+                .ease("linear")
+                .attr("font-size","24px")
+                .attr("fill","black")
+                .attr("opacity", 1.0) ;
+        
+        
+        
+        blendTxtNode.transition()
+                .duration(1000)
+                .ease("linear")
+                .attr("font-size","20px")
+                .attr("fill","black")
+                .attr("opacity", 1.0) ;
+        
+        
+    }
+
     function blendedFocus(blendTxtNode, opacity)
     {
     
@@ -395,11 +435,7 @@ var defs = svgContainer.append("defs") ;
         var component1 = d3.select("#" + blendedComponent1) ;
         var component2 = d3.select("#" + blendedComponent2) ;
         
-      /* d3.select(blendTxtNode.parentNode.parentNode).selectAll("text").transition()
-                .duration(1000)
-                .ease("linear")
-                .attr("fill","none") ; 
-        */
+      
        var segmentText = component1.select("text") ;
        segmentText.transition()
                 .duration(1000)

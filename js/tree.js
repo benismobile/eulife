@@ -22,6 +22,7 @@ var margin = {top: 20, right: 120, bottom: 20, left: 120},
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+var closestSelection = null ;
 
 function update(source) {
 
@@ -143,6 +144,7 @@ function update(source) {
     
    // calculate emotions
  
+    /*
   
   var derivedEmotion = deriveEmotion(nodes) ;
 
@@ -166,8 +168,20 @@ function update(source) {
    console.log("closest emotion (2011):" + closestEmotion2011.emotion + " level:" +  closestEmotion2011.level) ; 
         
   var closestSelection = d3.select("#" + closestEmotion2011.emotion) ;
-  segmentFocus(closestSelection, 1.0) ;
+  
     
+  if(blendedStateComponents.hasOwnProperty(closestEmotion2011.emotion))
+  {
+                        
+    blendedFocusSelected(closestSelection, 1.0) ;
+  }
+  else
+  {
+      
+    segmentFocus(closestSelection, 1.0) ;
+  
+  }
+    */    
   // Stash the old positions for transition.
   nodes.forEach(function(d) {
     d.x0 = d.x;
@@ -184,9 +198,11 @@ function click(d) {
     d._children = d.children;
     d.children = null;
     update(d) ;
+    console.log("click on expanded node" );  
+    calculateEmotions();  
   } 
   else {
-    
+    console.log("click on node which is not expanded" );  
     d.children = d._children;
     d._children = null;
    // if question variable node clicked get variable data and append to child ctegory nodes    
@@ -194,11 +210,13 @@ function click(d) {
     {
         var varNode = d ;
         // get variable data
-        // TODO chack for cached results
+      
         
         if( varNode.children[0].data && varNode.children[0].data.length > 0)
         {
             update(d) ;
+             console.log("updated variable with previous cache results" ); 
+            calculateEmotions();
         }
         else
         {
@@ -229,18 +247,69 @@ function click(d) {
               });
               
               update(d) ;
+            
+              console.log("updated variable with no cache" );        
+              calculateEmotions() ;
+               
            });
         }
     }
     else
     {
-        update(d) ;      
+        update(d) ;  
+        console.log("updated not a variable" );
     }
     
     
   }
     
 }
+
+  function calculateEmotions()
+  {
+         nodes = tree.nodes(rootNode).reverse()
+         var derivedEmotion = deriveEmotion(nodes) ;
+         console.log("derived emotions variable: x:" + derivedEmotion.vector.x + " y:"+        derivedEmotion.vector.y) ;
+    
+      var derivedEmotion2007 = deriveEmotion(nodes, "2007") ;
+
+  console.log("derived emotion (2007): x:" + derivedEmotion2007.vector.x + " y:"+ derivedEmotion2007.vector.y) ;
+
+  var derivedEmotion2011 = deriveEmotion(nodes, "2011") ;
+
+  console.log("derived emotion (2011): x:" + derivedEmotion2011.vector.x + " y:"+ derivedEmotion2011.vector.y) ;
+   
+   var closestEmotion = findClosestEmotion(derivedEmotion) ;
+   console.log("closest emotion:" + closestEmotion.emotion + "\u1F60A level:" +  closestEmotion.level ) ;    
+    
+  var closestEmotion2007 = findClosestEmotion(derivedEmotion2007) ;
+   console.log("closest emotion (2007):" + closestEmotion2007.emotion + " level:" +  closestEmotion2007.level) ; 
+    
+  var closestEmotion2011 = findClosestEmotion(derivedEmotion2011) ;
+   console.log("closest emotion (2011):" + closestEmotion2011.emotion + " level:" +  closestEmotion2011.level) ; 
+        
+      
+        
+  closestSelection = d3.select("#" + closestEmotion2011.emotion) ;
+  
+   if(!closestSelection)
+   {
+       return ;
+   }
+    
+  if(blendedStateComponents.hasOwnProperty(closestEmotion2011.emotion))
+  {
+                        
+    blendedFocusSelected(closestSelection, 1.0) ;
+  }
+  else
+  {
+      
+    segmentFocus(closestSelection, 1.0) ;
+  
+  }
+      
+} // ends calculate emotions
 
   function wrap(text, width) {
       width = width + 10 ;

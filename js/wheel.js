@@ -393,29 +393,31 @@ var wheelColors = [
         var component1 = d3.select("#" + blendedComponent1) ;
         var component2 = d3.select("#" + blendedComponent2) ;
         
-       d3.selectAll("text").attr("fill","none") ;    
+      /* d3.select(blendTxtNode.parentNode.parentNode).selectAll("text").transition()
+                .duration(1000)
+                .ease("linear")
+                .attr("fill","none") ; 
+        */
        var segmentText = component1.select("text") ;
        segmentText.transition()
-                .duration(250)
+                .duration(1000)
                 .ease("linear")
-                .attr("font-size","20px")
+                .attr("font-size","24px")
                 .attr("fill","black")
                 .attr("opacity", 1.0) ;
         
        var segmentText2 = component2.select("text") ;
        segmentText2.transition()
-                .duration(250)
-                .delay(250)
+                .duration(1000)
                 .ease("linear")
-                .attr("font-size","20px")
+                .attr("font-size","24px")
                 .attr("fill","black")
                 .attr("opacity", 1.0) ;
         
         
         
         d3.select(blendTxtNode).transition()
-                .duration(250)
-                .delay(500)
+                .duration(1000)
                 .ease("linear")
                 .attr("font-size","20px")
                 .attr("fill","black")
@@ -427,7 +429,7 @@ var wheelColors = [
     function blendedUnFocus(blendTxtNode, opacity)
     {
     
-        
+        console.log("blendedUnfocus") ;
         
         var blendedNodeId = d3.select(blendTxtNode).attr("id") ;
         var blendedComponent1 = blendedStateComponents[""+blendedNodeId][0];
@@ -437,7 +439,7 @@ var wheelColors = [
         
        var segmentText = component1.select("text") ;
        segmentText.transition()
-                .duration(750)
+                .duration(1000)
                 .ease("linear")
                 .attr("font-size","12px")
                 .attr("fill","black")
@@ -445,9 +447,7 @@ var wheelColors = [
         
        var segmentText2 = component2.select("text") ;
        segmentText2.transition()
-                .duration(500)
-                .delay(250)
-    
+                .duration(1000)
                 .ease("linear")
                 .attr("font-size","12px")
                 .attr("fill","black")
@@ -456,15 +456,17 @@ var wheelColors = [
         
         
         d3.select(blendTxtNode).transition()
-                .duration(250)
-                .delay(500)
+                .duration(1000)
                 .ease("linear")
                 .attr("font-size","12px")
                 .attr("fill","black")
                 .attr("opacity", 1.0) ;
-        
-		d3.selectAll("text").attr("fill","none").attr("fill","black") ; 
-        
+        /*
+		d3.select(blendTxtNode.parentNode.parentNode).selectAll("text").transition()
+                .duration(1000)
+                .ease("linear")
+                .attr("fill","black") ; 
+        */
     }
     
     

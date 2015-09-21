@@ -288,12 +288,14 @@ function click(d) {
   var closestEmotion2011 = findClosestEmotion(derivedEmotion2011) ;
    console.log("closest emotion (2011):" + closestEmotion2011.emotion + " level:" +  closestEmotion2011.level) ; 
         
-      
+  
+  unfocusAll() ;  
         
   closestSelection = d3.select("#" + closestEmotion2011.emotion) ;
   
    if(!closestSelection)
    {
+       console.log("could not find a match for emotion" + closestEmotion2011.emotion ) ;
        return ;
    }
     

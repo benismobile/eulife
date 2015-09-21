@@ -101,7 +101,7 @@ var defs = svgContainer.append("defs") ;
             pathCommand = pathCommand + " A " + r1 + " " + r1 +" 0 0 0 " + (centerX + lastCircumfrancePoint.deltaX) + " " + (centerY + lastCircumfrancePoint.deltaY );
            
              var segmentGroup = svgContainer.append("g")
-                 .attr("class",function(){ return "whlsegment" + (section-1)})
+                 .attr("class",function(){ return "emotion whlsegment section" + (section-1) + " level1" })
                  .attr("id", function (d) { return emotionalStates[section-1][0] ; })  ;
             
             
@@ -168,7 +168,7 @@ var defs = svgContainer.append("defs") ;
            
             
              var segmentGroup = svgContainer.append("g")
-                 .attr("class",function(){ return "whlsegment" + (section-1)  })
+                 .attr("class",function(){ return "emotion whlsegment section" + (section-1) + " level2"  })
                  .attr("id", function (d) { return emotionalStates[section-1][1] ; })  ;
             
             
@@ -293,7 +293,7 @@ var defs = svgContainer.append("defs") ;
             
             
             var segmentGroup = svgContainer.append("g")
-                  .attr("class",function(){ return "whlsegment" + (section-1)})
+                  .attr("class",function(){ return "emotion whlsegment section" + (section-1) + " level3" })
                  .attr("id", function (d) { return emotionalStates[section-1][2] ; }) ;   
                  
            
@@ -356,7 +356,7 @@ var defs = svgContainer.append("defs") ;
             
             
               var segmentGroup = svgContainer.append("g")
-                  .attr("class",function(){ return "whlsegment" + (section-1)})
+                  .attr("class",function(){ return "emotion whlsegment section" + (section-1) + " level4" })
                  .attr("id", function (d) { return emotionalStates[section-1][2] ; })  ;
          
                 
@@ -520,8 +520,12 @@ var defs = svgContainer.append("defs") ;
                                 .attr("stroke-width", "4")
                                .attr("opacity", opacity) ;
         
+        var sectionClsIndex = segment.attr("class").indexOf("section") ;
+        var sectionCls = segment.attr("class").substr(sectionClsIndex,8) ;
+     
+        
     // clear other text in this group to give space for text animation       
-      var segments = d3.selectAll( ("." +        segment.attr("class"))).select("text").attr("fill","none") ;
+      var segments = d3.selectAll( ("." + sectionCls )).select("text").attr("fill","none") ;
 				
        // d3.selectAll("text").attr("fill","none") ;
 					 
@@ -535,7 +539,46 @@ var defs = svgContainer.append("defs") ;
         
     }
     
-    
+    function unfocusAll()
+    {
+        d3.selectAll(".emotion").selectAll("text")
+                .transition()
+                .duration(250)
+                .ease("linear")
+                .attr("font-size","12px") 
+                .attr("opacity", 1.0) ;
+           
+        
+        d3.selectAll(".level1").select("path")
+                .transition()
+                .duration(250)
+                .ease("linear")
+                .attr("stroke-width", "2")
+                .attr("opacity", 0.85) ;
+        
+        d3.selectAll(".level2").select("path")
+                .transition()
+                .duration(250)
+                .ease("linear")
+                .attr("stroke-width", "2")
+                .attr("opacity", 0.75) ;
+        
+           d3.selectAll(".level3").select("path")
+                .transition()
+                .duration(250)
+                .ease("linear")
+                .attr("stroke-width", "2")
+                .attr("opacity", 0.5) ;
+        
+        d3.selectAll(".level4").select("path")
+                .transition()
+                .duration(250)
+                .ease("linear")
+                .attr("stroke-width", "2")
+                .attr("opacity", 0.25) ;
+        
+        
+    }
     
     function segmentUnFocus(segment,opacity)
     {
@@ -555,10 +598,12 @@ var defs = svgContainer.append("defs") ;
                 .attr("font-size","12px") 
                 .attr("opacity", 1.0) ;
         
-        
+      var sectionClsIndex = segment.attr("class").indexOf("section") ;
+        var sectionCls = segment.attr("class").substr(sectionClsIndex,8) ;
+       
         
         // restore text in this group     
-        var segments = d3.selectAll( ("." +        segment.attr("class"))).select("text").attr("fill","black") ;
+        var segments = d3.selectAll( ("." + sectionCls)).select("text").attr("fill","black") ;
         
 	//	d3.selectAll("text").attr("fill","none").attr("fill","black") ; 
         

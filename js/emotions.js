@@ -1,8 +1,8 @@
 var emotions = {
     "0":{ "vector":{"x":0, "y":0}, "emotionId":0, "emotion":"neutral", "level":0},   
-    "1":{ "vector":{"x":0, "y":-1}, "emotionId":1, "emotion":"pensieve", "level":1, "emoji":"\ud83d\ude14"},
-    "2":{ "vector":{"x":0, "y":-2}, "emotionId":2, "emotion":"pensieve", "level":2, "emoji":"\ud83d\ude14"},
-    "3":{ "vector":{"x":0, "y":-3}, "emotionId":3, "emotion":"pensieve", "level":3, "emoji":"\ud83d\ude14"},
+    "1":{ "vector":{"x":0, "y":-1}, "emotionId":1, "emotion":"pensieveness", "level":1, "emoji":"\ud83d\ude14"},
+    "2":{ "vector":{"x":0, "y":-2}, "emotionId":2, "emotion":"pensieveness", "level":2, "emoji":"\ud83d\ude14"},
+    "3":{ "vector":{"x":0, "y":-3}, "emotionId":3, "emotion":"pensieveness", "level":3, "emoji":"\ud83d\ude14"},
     "4":{ "vector":{"x":0, "y":-4}, "emotionId":4, "emotion":"sadness", "level":1, "emoji":"\ud83d\ude14"},
     "5":{ "vector":{"x":0, "y":-5}, "emotionId":5, "emotion":"sadness", "level":2,"emoji":"\ud83d\ude14"},
     "6":{ "vector":{"x":0, "y":-6}, "emotionId":6, "emotion":"sadness", "level":3,"emoji":"\ud83d\ude14"},

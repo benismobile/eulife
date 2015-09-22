@@ -388,7 +388,8 @@ var questionNodes = [] ;
                                 if(cEmotion && c.CategoryId == cEmotion.categoryId)
                                 {
                                      var emotion =   emotions[cEmotion.emotionId] ;
-                                    categoryNode.name =  c.CategoryValue + " " + emotion.emotion + " \u27A4  \ud83d\ude01";
+                                    categoryNode.name =  c.CategoryValue + ":" + categoryLabel + "\u27A4" + emotion.emotion  ;
+                                
                                     // categoryNode.name ='\u27A4  \ud83d\ude01';
                                      categoryNode.emotionId = cEmotion.emotionId ;
                                      categoryNode.emotion = emotion ;

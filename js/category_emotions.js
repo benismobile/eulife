@@ -33,13 +33,27 @@ var categoryEmotions = {
     "728":{ "variableId":153 , "categoryId":728 , "emotionId": 17 },
     "729":{ "variableId":153 , "categoryId":729 , "emotionId": 19 },
        
+    "736":{ "variableId":155 , "categoryId":736 , "emotionId":171 },
+    "737":{ "variableId":155 , "categoryId":737 , "emotionId":173 },
+    "738":{ "variableId":155 , "categoryId":738 , "emotionId":175 },
+    "739":{ "variableId":155 , "categoryId":739 , "emotionId":177 },
+    "740":{ "variableId":155 , "categoryId":740 , "emotionId":179},
+    "741":{ "variableId":155 , "categoryId":741 , "emotionId":121},
     
-    "760":{ "variableId":159 , "categoryId":760 , "emotionId":80 },
-    "761":{ "variableId":159 , "categoryId":761 , "emotionId":78 },
-    "762":{ "variableId":159 , "categoryId":762 , "emotionId":76 },
-    "763":{ "variableId":159 , "categoryId":763 , "emotionId":74 },
-    "764":{ "variableId":159 , "categoryId":764 , "emotionId":72},
-    "765":{ "variableId":159 , "categoryId":765 , "emotionId":81},
+    
+    "754":{ "variableId":158 , "categoryId":754 , "emotionId":45 },
+    "755":{ "variableId":158 , "categoryId":755 , "emotionId":43 },
+    "756":{ "variableId":158 , "categoryId":756 , "emotionId":41 },
+    "757":{ "variableId":158 , "categoryId":757 , "emotionId":51 },
+    "758":{ "variableId":158 , "categoryId":758 , "emotionId":53},
+    "759":{ "variableId":158 , "categoryId":759 , "emotionId":55},
+    
+    "760":{ "variableId":159 , "categoryId":760 , "emotionId":130 },
+    "761":{ "variableId":159 , "categoryId":761 , "emotionId":128 },
+    "762":{ "variableId":159 , "categoryId":762 , "emotionId":126 },
+    "763":{ "variableId":159 , "categoryId":763 , "emotionId":124 },
+    "764":{ "variableId":159 , "categoryId":764 , "emotionId":122},
+    "765":{ "variableId":159 , "categoryId":765 , "emotionId":171},
     
     "766":{ "variableId":160 , "categoryId":766 , "emotionId": 150 },
     "767":{ "variableId":160 , "categoryId":767 , "emotionId": 147 },

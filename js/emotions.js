@@ -1,5 +1,6 @@
 var emotions = {
-    "0":{ "vector":{"x":0, "y":0}, "emotionId":0, "emotion":"neutral", "level":0},   
+    
+    
     "1":{ "vector":{"x":0, "y":-1}, "emotionId":1, "emotion":"pensieveness", "level":1, "emoji":"\ud83d\ude14"},
     "2":{ "vector":{"x":0, "y":-2}, "emotionId":2, "emotion":"pensieveness", "level":2, "emoji":"\ud83d\ude14"},
     "3":{ "vector":{"x":0, "y":-3}, "emotionId":3, "emotion":"pensieveness", "level":3, "emoji":"\ud83d\ude14"},

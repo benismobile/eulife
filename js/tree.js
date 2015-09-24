@@ -144,44 +144,7 @@ function update(source) {
     
    // calculate emotions
  
-    /*
-  
-  var derivedEmotion = deriveEmotion(nodes) ;
-
-  console.log("derived emotion: x:" + derivedEmotion.vector.x + " y:"+ derivedEmotion.vector.y) ;
     
-  var derivedEmotion2007 = deriveEmotion(nodes, "2007") ;
-
-  console.log("derived emotion (2007): x:" + derivedEmotion2007.vector.x + " y:"+ derivedEmotion2007.vector.y) ;
-
-  var derivedEmotion2011 = deriveEmotion(nodes, "2011") ;
-
-  console.log("derived emotion (2011): x:" + derivedEmotion2011.vector.x + " y:"+ derivedEmotion2011.vector.y) ;
-   
-   var closestEmotion = findClosestEmotion(derivedEmotion) ;
-   console.log("closest emotion:" + closestEmotion.emotion + "\u1F60A level:" +  closestEmotion.level ) ;    
-    
-  var closestEmotion2007 = findClosestEmotion(derivedEmotion2007) ;
-   console.log("closest emotion (2007):" + closestEmotion2007.emotion + " level:" +  closestEmotion2007.level) ; 
-    
-  var closestEmotion2011 = findClosestEmotion(derivedEmotion2011) ;
-   console.log("closest emotion (2011):" + closestEmotion2011.emotion + " level:" +  closestEmotion2011.level) ; 
-        
-  var closestSelection = d3.select("#" + closestEmotion2011.emotion) ;
-  
-    
-  if(blendedStateComponents.hasOwnProperty(closestEmotion2011.emotion))
-  {
-                        
-    blendedFocusSelected(closestSelection, 1.0) ;
-  }
-  else
-  {
-      
-    segmentFocus(closestSelection, 1.0) ;
-  
-  }
-    */    
   // Stash the old positions for transition.
   nodes.forEach(function(d) {
     d.x0 = d.x;

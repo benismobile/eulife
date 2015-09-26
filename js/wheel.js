@@ -236,13 +236,12 @@ var defs = svgContainer.append("defs") ;
                  .attr("stroke-width", "2") ;
             */
                // add path to defs element
-             defs.append("path")
+        
+            defs.append("path")
                  .attr("d", pathCommand)
                  .attr("id", function (d) { return blendedStates[section-1][0] + "Path" ; }) ;
             
-          //  var segmentGroup = svgContainer.append("g")
-         //         .attr("class",function(){ return "whlsegment" + (section-1)})
-        //         .attr("id", function (d) { return emotionalStates[section-1][0] ; })  ;
+        
            
              var txtPath = segmentGroup.append("text")
                  .attr("font","Ariel") 
@@ -382,6 +381,58 @@ var defs = svgContainer.append("defs") ;
          lastSectionAngleShifted = sectionAngleShifted ;
       
      }
+    
+    var emotionPoints = [] ;
+    
+    for (var emotionId in emotions) {
+      if( emotions.hasOwnProperty(emotionId) ) {
+        
+          var referenceEmotion = emotions[emotionId] ;
+        //  console.log("reference emotion" +   referenceEmotion.emotion ) ;
+            referenceEmotion.id = emotionId ; 
+       // var emotionVector = referenceEmotion.vector ;
+            emotionPoints.push(referenceEmotion) ;          
+        }
+    
+    }
+    
+  // add circles to represent each emotion point
+     svgContainer.selectAll("circle")
+    .data(emotionPoints)
+    .enter().append("circle")
+      .attr("cy", function(d) { 
+         var spinePoint = (1 / 10) * (viz.width/2) ;
+        // var unitVectorY = d.vector.y / d.level ;
+        // var mod11Y = (d.level % 11) * unitVectorY  ;
+          
+         var cy = centerY - (d.display_vector.y * spinePoint) ; 
+         return cy ;
+       })
+      .attr("cx", function(d) { 
+          
+          var spinePoint = (1/ 10) * (viz.width/2) ;
+        //  var unitVectorX = d.vector.x / d.level ;
+        //  var mod11X = (d.level % 11) * unitVectorX  ;
+          
+         var cx =  centerX + (d.display_vector.x * spinePoint) ;
+          return cx ; 
+      })
+      .attr("id", function(d) {
+            return "ePoint" + d.id ;   
+      })
+      .attr("name", function(d) {
+          return d.emotion ;
+     })
+      .attr("level", function(d) {
+          return d.level ;  
+     })
+      .attr("class", function(d) {
+            return "ePoint ePoint_" + d.id + " ePoint_" + d.emotion  
+       })
+       .attr("fill", "blue")
+      .attr("r", function(d) { return 3; });
+    
+   
   } // ends fuction draw wheel  
     
     function blendedFocusSelected(blendTxtNode, opacity)
@@ -397,6 +448,8 @@ var defs = svgContainer.append("defs") ;
         
       
        var segmentText = component1.select("text") ;
+     
+      /*    
        segmentText.transition()
                 .duration(1000)
                 .ease("linear")
@@ -412,7 +465,7 @@ var defs = svgContainer.append("defs") ;
                 .attr("fill","black")
                 .attr("opacity", 1.0) ;
         
-        
+        */
         
         blendTxtNode.transition()
                 .duration(1000)
@@ -420,6 +473,7 @@ var defs = svgContainer.append("defs") ;
                 .attr("font-size","20px")
                 .attr("fill","black")
                 .attr("opacity", 1.0) ;
+        
         
         
     }
@@ -460,6 +514,8 @@ var defs = svgContainer.append("defs") ;
                 .attr("font-size","20px")
                 .attr("fill","black")
                 .attr("opacity", 1.0) ;
+      
+        
         
     }
     
@@ -499,12 +555,7 @@ var defs = svgContainer.append("defs") ;
                 .attr("font-size","12px")
                 .attr("fill","black")
                 .attr("opacity", 1.0) ;
-        /*
-		d3.select(blendTxtNode.parentNode.parentNode).selectAll("text").transition()
-                .duration(1000)
-                .ease("linear")
-                .attr("fill","black") ; 
-        */
+       
     }
     
     
@@ -606,5 +657,6 @@ var defs = svgContainer.append("defs") ;
         var segments = d3.selectAll( ("." + sectionCls)).select("text").attr("fill","black") ;
         
 	//	d3.selectAll("text").attr("fill","none").attr("fill","black") ; 
+          
         
     }

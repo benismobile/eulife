@@ -87,27 +87,31 @@ var emotions = {
     
   
     
-     "81":{ "vector":{"x":1*cos315, "y":1*sine315},"display_vector":{"x":10*cos315, "y":10*sine315}, "emotionId":81, "emotion":"distraction", "level":1},
-     "82":{ "vector":{"x":2*cos315, "y":2*sine315}, "display_vector":{"x":9*cos315, "y":9*sine315},"emotionId":82, "emotion":"distraction", "level":2},
-     "83":{ "vector":{"x":3*cos315, "y":3*sine315},"display_vector":{"x":8*cos315, "y":8*sine315}, "emotionId":83, "emotion":"distraction", "level":3}, 
-     "84":{ "vector":{"x":4*cos315, "y":4*sine315}, "display_vector":{"x":7*cos315, "y":7*sine315},"emotionId":84, "emotion":"surprise", "level":1},
-     "85":{ "vector":{"x":5*cos315, "y":5*sine315},"display_vector":{"x":6*cos315, "y":6*sine315}, "emotionId":85, "emotion":"surprise", "level":2},
-     "86":{ "vector":{"x":6*cos315, "y":6*sine315},"display_vector":{"x":5*cos315, "y":5*sine315}, "emotionId":86, "emotion":"surprise", "level":3},
-     "87":{ "vector":{"x":7*cos315, "y":7*sine315}, "display_vector":{"x":4*cos315, "y":4*sine315},"emotionId":87, "emotion":"surprise", "level":4},
-     "88":{ "vector":{"x":8*cos315, "y":8*sine315},"display_vector":{"x":3*cos315, "y":3*sine315}, "emotionId":88, "emotion":"surprise", "level":5},
-     "89":{ "vector":{"x":9*cos315, "y":9*sine315}, "display_vector":{"x":2*cos315, "y":2*sine315},"emotionId":89, "emotion":"amazement", "level":1},
-     "90":{ "vector":{"x":10*cos315, "y":10*sine315}, "display_vector":{"x":1*cos315, "y":1*sine315},"emotionId":90, "emotion":"amazement", "level":2},
+     "81":{ "vector":{"x":1*cos315, "y":1*sine315},"display_vector":{"x":8.5*cos315, "y":8.5*sine315}, "emotionId":81, "emotion":"distraction", "level":1, "emoji":"\ud83d\uDE33"},
+     "82":{ "vector":{"x":2*cos315, "y":2*sine315}, "display_vector":{"x":7.5*cos315, "y":7.5*sine315},"emotionId":82, "emotion":"distraction", "level":2, "emoji":"\ud83d\uDE33"},
+     "83":{ "vector":{"x":3*cos315, "y":3*sine315},"display_vector":{"x":6.5*cos315, "y":6.5*sine315}, "emotionId":83, "emotion":"distraction", "level":3, "emoji":"\ud83d\uDE33"}, 
+     "84":{ "vector":{"x":4*cos315, "y":4*sine315}, "display_vector":{"x":5.7*cos315, "y":5.7*sine315},"emotionId":84, "emotion":"surprise", "level":1, "emoji":"\ud83d\uDE32"},
+     "85":{ "vector":{"x":5*cos315, "y":5*sine315},"display_vector":{"x":5.3*cos315, "y":5.3*sine315}, "emotionId":85, "emotion":"surprise", "level":2,"emoji":"\ud83d\uDE32"},
+     "86":{ "vector":{"x":6*cos315, "y":6*sine315},"display_vector":{"x":4.9*cos315, "y":4.9*sine315}, "emotionId":86, "emotion":"surprise", "level":3, "emoji":"\ud83d\uDE32"},
+     "87":{ "vector":{"x":7*cos315, "y":7*sine315}, "display_vector":{"x":4.5*cos315, "y":4.5*sine315},"emotionId":87, "emotion":"surprise", "level":4, "emoji":"\ud83d\uDE32"},
+     "88":{ "vector":{"x":8*cos315, "y":8*sine315},"display_vector":{"x":4*cos315, "y":4*sine315}, "emotionId":88, "emotion":"surprise", "level":5, "emoji":"\ud83d\uDE32" },
+     "89":{ "vector":{"x":9*cos315, "y":9*sine315}, "display_vector":{"x":3*cos315, "y":3*sine315},"emotionId":89, "emotion":"amazement", "level":1, "emoji":"\ud83d\uDE35"},
+     "90":{ "vector":{"x":1.5*cos315, "y":1.5*sine315}, "display_vector":{"x":1.5*cos315, "y":1.5*sine315},"emotionId":90, "emotion":"amazement", "level":2, "emoji":"\ud83d\uDE35"},
     
-     "91":{ "vector":{"x":1*cos22_5, "y":1*sine22_5},"display_vector":{"x":10*cos22_5, "y":10*sine22_5}, "emotionId":91, "emotion":"submission", "level":1},
-     "92":{ "vector":{"x":2*cos22_5, "y":2*sine22_5}, "display_vector":{"x":9*cos22_5, "y":9*sine22_5}, "emotionId":92, "emotion":"submission", "level":2},
-     "93":{ "vector":{"x":3*cos22_5, "y":3*sine22_5}, "display_vector":{"x":8*cos22_5, "y":8*sine22_5}, "emotionId":93, "emotion":"submission", "level":3},
-     "94":{ "vector":{"x":4*cos22_5, "y":4*sine22_5}, "display_vector":{"x":7*cos22_5, "y":7*sine22_5}, "emotionId":94, "emotion":"submission", "level":4},
-     "95":{ "vector":{"x":5*cos22_5, "y":5*sine22_5},"display_vector":{"x":6*cos22_5, "y":6*sine22_5}, "emotionId":95, "emotion":"submission", "level":5},
-     "96":{ "vector":{"x":6*cos22_5, "y":6*sine22_5},"display_vector":{"x":5*cos22_5, "y":5*sine22_5},  "emotionId":96, "emotion":"submission", "level":6},
-     "97":{ "vector":{"x":7*cos22_5, "y":7*sine22_5}, "display_vector":{"x":4*cos22_5, "y":4*sine22_5}, "emotionId":97, "emotion":"submission", "level":7},
-     "98":{ "vector":{"x":8*cos22_5, "y":8*sine22_5}, "display_vector":{"x":3*cos22_5, "y":3*sine22_5}, "emotionId":98, "emotion":"submission", "level":8},
-     "99":{ "vector":{"x":9*cos22_5, "y":9*sine22_5}, "display_vector":{"x":2*cos22_5, "y":2*sine22_5}, "emotionId":99, "emotion":"submission", "level":9},
-     "100":{ "vector":{"x":10*cos22_5, "y":10*sine22_5},"display_vector":{"x":1*cos22_5, "y":1*sine22_5}, "emotionId":100, "emotion":"submission", "level":10},
+    
+    
+    
+    
+     "91":{ "vector":{"x":1*cos22_5, "y":1*sine22_5},"display_vector":{"x":8.5*cos22_5, "y":8.5*sine22_5}, "emotionId":91, "emotion":"submission", "level":1, "emoji":"\ud83d\uDE47"},
+     "92":{ "vector":{"x":2*cos22_5, "y":2*sine22_5}, "display_vector":{"x":7.5*cos22_5, "y":7.5*sine22_5}, "emotionId":92, "emotion":"submission", "level":2,"emoji":"\ud83d\uDE47"},
+     "93":{ "vector":{"x":3*cos22_5, "y":3*sine22_5}, "display_vector":{"x":6.5*cos22_5, "y":6.5*sine22_5}, "emotionId":93, "emotion":"submission", "level":3,"emoji":"\ud83d\uDE47"},
+     "94":{ "vector":{"x":4*cos22_5, "y":4*sine22_5}, "display_vector":{"x":5.7*cos22_5, "y":5.7*sine22_5}, "emotionId":94, "emotion":"submission", "level":4,"emoji":"\ud83d\uDE47"},
+     "95":{ "vector":{"x":5*cos22_5, "y":5*sine22_5},"display_vector":{"x":5.3*cos22_5, "y":5.3*sine22_5}, "emotionId":95, "emotion":"submission", "level":5,"emoji":"\ud83d\uDE47"},
+     "96":{ "vector":{"x":6*cos22_5, "y":6*sine22_5},"display_vector":{"x":4.9*cos22_5, "y":4.9*sine22_5},  "emotionId":96, "emotion":"submission", "level":6,"emoji":"\ud83d\uDE47"},
+     "97":{ "vector":{"x":7*cos22_5, "y":7*sine22_5}, "display_vector":{"x":4.5*cos22_5, "y":4.5*sine22_5}, "emotionId":97, "emotion":"submission", "level":7,"emoji":"\ud83d\uDE47"},
+     "98":{ "vector":{"x":8*cos22_5, "y":8*sine22_5}, "display_vector":{"x":4*cos22_5, "y":4*sine22_5}, "emotionId":98, "emotion":"submission", "level":8,"emoji":"\ud83d\uDE47"},
+     "99":{ "vector":{"x":9*cos22_5, "y":9*sine22_5}, "display_vector":{"x":3*cos22_5, "y":3*sine22_5}, "emotionId":99, "emotion":"submission", "level":9,"emoji":"\ud83d\uDE47"},
+     "100":{ "vector":{"x":10*cos22_5, "y":10*sine22_5},"display_vector":{"x":1.5*cos22_5, "y":1.5*sine22_5}, "emotionId":100, "emotion":"submission", "level":10,"emoji":"\ud83d\uDE47"},
     
      "101":{ "vector":{"x":1*cos67_5, "y":1*sine67_5},"display_vector":{"x":8.5*cos67_5, "y":8.5*sine67_5}, "emotionId":101, "emotion":"love", "level":1},
      "102":{ "vector":{"x":2*cos67_5, "y":2*sine67_5},"display_vector":{"x":7.5*cos67_5, "y":7.5*sine67_5}, "emotionId":102, "emotion":"love", "level":2},
@@ -188,20 +192,22 @@ var emotions = {
     
     } ;
 
-function deriveEmotion(nodes, year)
+function deriveEmotion(nodes, year, country)
 {
-    
+  if(!country){ country = "eu27"}    
   var xSum = 0 ;// sum of X vector values
   var ySum = 0 ;  // sum of Y vector values
   var sumResponses = 0 ; // total number of responses 
     
     nodes.forEach(function(d) {
    
-        if(d.data && d.data.length > 0)
+         
+        
+        if(d.data && d.data.country.length > 0)
         {
-            for(var i = 0 ; i < d.data.length ; i++)
+            for(var i = 0 ; i < d.data.country.length ; i++)
             {
-                var dataPoint = d.data[i] ;
+                var dataPoint = d.data.country[i] ;
                
                 if((year && dataPoint.Year == year) || !year)
                 {

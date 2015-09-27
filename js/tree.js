@@ -162,7 +162,9 @@ function click(d) {
     d.children = null;
     update(d) ;
     console.log("click on expanded node" );  
-    calculateEmotions();  
+    
+    // TODO get current country selected
+    calculateEmotions("eu27");  
   } 
   else {
     console.log("click on node which is not expanded" );  
@@ -179,42 +181,14 @@ function click(d) {
         {
             update(d) ;
              console.log("updated variable with previous cache results" ); 
-            calculateEmotions();
+            // TODO get current country selected
+            calculateEmotions("eu27");
         }
         else
         {
-           d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/TimeseriesFrequency?user_key=7a33ae85e08913180dd1bad6a3059acc&variableId="+d.variableId + "&filter=22:2" , function(error, varData) {
-               
-              varData.TimeSeries.forEach(function(dataPoint){
-                   // match the datapoint to the mathing answer (category) child nodes for this question (variable)
-                   // should return a single node in the filter array for the matching answer 
-                    categoryNode = varNode.children.filter(function(d) { 
-                        return d.categoryValue == dataPoint.Value 
-                    }) ;
-                  
-                    if(categoryNode.length > 0) {
-                        if(!categoryNode[0].data ) {
-                            categoryNode[0].data = [] ;
-                        }
-                  
-                        categoryNode[0].data.push(dataPoint) ;
-                        // append data to node label for both years
-                        // TODO maybe shift to update function?
-                        if(categoryNode[0].data.length <= 2) 
-                        {
-                         categoryNode[0].name = categoryNode[0].name + " " + dataPoint.Year +":" + dataPoint.WeightedFrequency + " " ;
-                        } 
-                    }
-                     
-                  
-              });
-              
-              update(d) ;
-            
-              console.log("updated variable with no cache" );        
-              calculateEmotions() ;
-               
-           });
+           timeSeriesData(varNode,d,null,"eu27") ;      
+           timeSeriesData(varNode,d,null,"AT") ;  
+           timeSeriesData(varNode,d,null,"EL") ;      
         }
     }
     else
@@ -228,28 +202,83 @@ function click(d) {
     
 }
 
-  function calculateEmotions()
+
+  function timeSeriesData(varNode,d, filter, country)
+  {
+       if(!filter){filter = "" ;}   
+      
+       if(country=="eu27")
+       {
+            filter = filter + "22:2" ;   
+       }
+       else if(country=="AT")
+       {
+               filter = filter + "2:1" ;   
+       }
+       else if(country=="EL")
+       {
+               filter = filter + "2:9" ;   
+       }
+        d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/TimeseriesFrequency?user_key=7a33ae85e08913180dd1bad6a3059acc&variableId="+d.variableId + "&filter=" + filter , function(error, varData) {
+               
+              varData.TimeSeries.forEach(function(dataPoint){
+                   // match the datapoint to the mathing answer (category) child nodes for this question (variable)
+                   // should return a single node in the filter array for the matching answer 
+                    categoryNode = varNode.children.filter(function(d) { 
+                        return d.categoryValue == dataPoint.Value 
+                    }) ;
+                  
+                    if(categoryNode.length > 0) {
+                        if(!categoryNode[0].data ) {
+                            categoryNode[0].data ={} ;
+                            categoryNode[0].data.country = [] ;
+                        }
+                  
+                        categoryNode[0].data.country.push(dataPoint) ;
+                        // append data to node label for both years
+                        // TODO maybe shift to update function?
+                        //if(categoryNode[0].data.country.length <= 2) 
+                        //{
+                         categoryNode[0].name = categoryNode[0].name + " (" + dataPoint.Year + ") " + country + ":" + dataPoint.WeightedFrequency + " " ;
+                        //} 
+                    }
+                     
+                  
+              });
+              
+              update(d) ;
+            
+              console.log("updated variable with no cache" );        
+              calculateEmotions(country) ; 
+               
+           });
+      
+      
+  }
+
+
+  function calculateEmotions(country)
   {
          nodes = tree.nodes(rootNode).reverse()
-         var derivedEmotion = deriveEmotion(nodes) ;
-         console.log("derived emotions variable: x:" + derivedEmotion.vector.x + " y:"+        derivedEmotion.vector.y) ;
+         var derivedEmotion = deriveEmotion(nodes,null,country) ;
+         console.log("derived emotions for country " + country + "variable: x:" + derivedEmotion.vector.x + " y:"+        derivedEmotion.vector.y) ;
     
-      var derivedEmotion2007 = deriveEmotion(nodes, "2007") ;
+      var derivedEmotion2007 = deriveEmotion(nodes, "2007", country) ;
 
-  console.log("derived emotion (2007): x:" + derivedEmotion2007.vector.x + " y:"+ derivedEmotion2007.vector.y) ;
+  console.log("derived emotion (2007) for country " + country + " x:" + derivedEmotion2007.vector.x + " y:"+ derivedEmotion2007.vector.y) ;
 
-  var derivedEmotion2011 = deriveEmotion(nodes, "2011") ;
+  var derivedEmotion2011 = deriveEmotion(nodes, "2011", country) ;
 
-  console.log("derived emotion (2011): x:" + derivedEmotion2011.vector.x + " y:"+ derivedEmotion2011.vector.y) ;
+  console.log("derived emotion (2011)for country " + country +": x:" + derivedEmotion2011.vector.x + " y:"+ derivedEmotion2011.vector.y) ;
    
    var closestEmotion = findClosestEmotion(derivedEmotion) ;
-   console.log("closest emotion:" + closestEmotion.emotion + "\u1F60A level:" +  closestEmotion.level ) ;    
+   console.log("closest emotion for country " + country +":" + closestEmotion.emotion + "\u1F60A level:" +  closestEmotion.level ) ;    
     
   var closestEmotion2007 = findClosestEmotion(derivedEmotion2007) ;
-   console.log("closest emotion (2007):" + closestEmotion2007.emotion + " level:" +  closestEmotion2007.level) ; 
+   console.log("closest emotion for country" + country +"(2007):" + closestEmotion2007.emotion + " level:" +  closestEmotion2007.level) ; 
     
   var closestEmotion2011 = findClosestEmotion(derivedEmotion2011) ;
-   console.log("closest emotion (2011):" + closestEmotion2011.emotion + " level:" +  closestEmotion2011.level) ; 
+   console.log("closest emotion for country" + country +"(2011):" + closestEmotion2011.emotion + " level:" +  closestEmotion2011.level) ; 
         
   
   
@@ -264,8 +293,8 @@ function click(d) {
    }
     
  
-unfocusAll() ; 
-      if(blendedStateComponents.hasOwnProperty(closestEmotion2011.emotion))
+  unfocusAll() ; 
+  if(blendedStateComponents.hasOwnProperty(closestEmotion2011.emotion))
   {
                         
     blendedFocusSelected(closestSelection, 1.0) ;
@@ -278,6 +307,8 @@ unfocusAll() ;
   }
       
   emotionPointFocus(closestEmotion2011);
+      
+      
       
 } // ends calculate emotions
 

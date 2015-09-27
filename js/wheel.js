@@ -397,24 +397,18 @@ var defs = svgContainer.append("defs") ;
     }
     
   // add circles to represent each emotion point
-     svgContainer.selectAll("circle")
+     var circle = svgContainer.selectAll("circle")
     .data(emotionPoints)
     .enter().append("circle")
       .attr("cy", function(d) { 
-         var spinePoint = (1 / 10) * (viz.width/2) ;
-        // var unitVectorY = d.vector.y / d.level ;
-        // var mod11Y = (d.level % 11) * unitVectorY  ;
-          
+         var spinePoint = (1 / 10) * (viz.width/2) ;  
          var cy = centerY - (d.display_vector.y * spinePoint) ; 
          return cy ;
        })
       .attr("cx", function(d) { 
           
-          var spinePoint = (1/ 10) * (viz.width/2) ;
-        //  var unitVectorX = d.vector.x / d.level ;
-        //  var mod11X = (d.level % 11) * unitVectorX  ;
-          
-         var cx =  centerX + (d.display_vector.x * spinePoint) ;
+          var spinePoint = (1/ 10) * (viz.width/2) ;  
+          var cx =  centerX + (d.display_vector.x * spinePoint) ;
           return cx ; 
       })
       .attr("id", function(d) {
@@ -430,9 +424,44 @@ var defs = svgContainer.append("defs") ;
             return "ePoint ePoint_" + d.id + " ePoint_" + d.emotion  
        })
        .attr("fill", "blue")
-      .attr("r", function(d) { return 3; });
+       .attr("opacity", 0.5)
+      .attr("r", function(d) { return 15; });
     
    
+    
+    
+    var emojii = svgContainer.selectAll(".emojiPoint")
+       .data(emotionPoints)
+       .enter().append("text")
+                 .attr("font","Ariel")
+                 .attr("x", function(d){
+                     var spinePoint = (1 / 10) * (viz.width/2) ;  
+                     var x = centerX + (d.display_vector.x * spinePoint) ; 
+                     return x ;
+                     
+                 })
+                 .attr("y", function(d){
+                  
+                     var spinePoint = (1 / 10) * (viz.width/2) ;  
+                     var y = centerY - (d.display_vector.y * spinePoint) ; 
+                     return y ;
+                     
+                 })
+                .attr("dy" , "0.5em")
+                .attr("class", function(d) {
+            return "emojiPoint emojiPoint_" + d.id + " emojiPoint_" + d.emotion  
+                  })
+                 .attr("text-anchor", "middle")
+                 .attr("font-size", "24px")
+                 .attr("style", "fill-opacity:1.0;")
+                 .attr("style", "text-align: center;")
+                 .attr("fill", "black")
+                 .text( function (d) {
+                     return d.emoji; 
+                 }) 
+  
+    
+    
   } // ends fuction draw wheel  
     
     function blendedFocusSelected(blendTxtNode, opacity)
@@ -659,4 +688,17 @@ var defs = svgContainer.append("defs") ;
 	//	d3.selectAll("text").attr("fill","none").attr("fill","black") ; 
           
         
+    }
+
+    function emotionPointFocus(emotion)
+    {
+            var emotionPointCircle = d3.select("#ePoint" + emotion.emotionId) ;
+        
+        
+        emotionPointCircle.transition()
+                .duration(250)
+                .attr("r", function(d) { return 20; });
+        
+    
+    
     }

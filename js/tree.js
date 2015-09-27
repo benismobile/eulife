@@ -183,7 +183,7 @@ function click(d) {
         }
         else
         {
-           d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/TimeseriesFrequency?user_key=7a33ae85e08913180dd1bad6a3059acc&variableId="+d.variableId, function(error, varData) {
+           d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/TimeseriesFrequency?user_key=7a33ae85e08913180dd1bad6a3059acc&variableId="+d.variableId + "&filter=22:2" , function(error, varData) {
                
               varData.TimeSeries.forEach(function(dataPoint){
                    // match the datapoint to the mathing answer (category) child nodes for this question (variable)
@@ -202,7 +202,7 @@ function click(d) {
                         // TODO maybe shift to update function?
                         if(categoryNode[0].data.length <= 2) 
                         {
-                       //  categoryNode[0].name = categoryNode[0].name + " " + dataPoint.Year +":" + dataPoint.WeightedFrequency + " " ;
+                         categoryNode[0].name = categoryNode[0].name + " " + dataPoint.Year +":" + dataPoint.WeightedFrequency + " " ;
                         } 
                     }
                      
@@ -252,8 +252,9 @@ function click(d) {
    console.log("closest emotion (2011):" + closestEmotion2011.emotion + " level:" +  closestEmotion2011.level) ; 
         
   
-  unfocusAll() ;  
-        
+  
+ // TODO change to closestEmotion2011.id
+ // TODO also handle circle node      
   closestSelection = d3.select("#" + closestEmotion2011.emotion) ;
   
    if(!closestSelection)
@@ -262,7 +263,9 @@ function click(d) {
        return ;
    }
     
-  if(blendedStateComponents.hasOwnProperty(closestEmotion2011.emotion))
+ 
+unfocusAll() ; 
+      if(blendedStateComponents.hasOwnProperty(closestEmotion2011.emotion))
   {
                         
     blendedFocusSelected(closestSelection, 1.0) ;
@@ -273,6 +276,8 @@ function click(d) {
     segmentFocus(closestSelection, 1.0) ;
   
   }
+      
+  emotionPointFocus(closestEmotion2011);
       
 } // ends calculate emotions
 

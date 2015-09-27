@@ -36,12 +36,12 @@ var emotions = {
      
     
     
-     "31":{ "vector":{"x":-1, "y":0},"display_vector":{"x":-8.5, "y":0}, "emotionId":31, "emotion":"annoyance", "level":1,"emoji":"\ud83d\uDE16"},
-     "32":{ "vector":{"x":-2, "y":0}, "display_vector":{"x":-7.5, "y":0}, "emotionId":32, "emotion":"annoyance", "level":2,"emoji":"\ud83d\uDE16"},
-     "33":{ "vector":{"x":-3, "y":0}, "display_vector":{"x":-6.5, "y":0},"emotionId":33, "emotion":"annoyance", "level":3, "emoji":"\ud83d\uDE16"},
-     "34":{ "vector":{"x":-4, "y":0},"display_vector":{"x":-5.7, "y":0}, "emotionId":34, "emotion":"anger", "level":1 , "emoji":"\ud83d\uDE21"},
-     "35":{ "vector":{"x":-5, "y":0}, "display_vector":{"x":-5.3, "y":0}, "emotionId":35, "emotion":"anger", "level":2, "emoji":"\ud83d\uDE21"},
-     "36":{ "vector":{"x":-6, "y":0},"display_vector":{"x":-4.9, "y":0}, "emotionId":36, "emotion":"anger", "level":3, "emoji":"\ud83d\uDE21"},
+     "31":{ "vector":{"x":-1, "y":0},"display_vector":{"x":-8.5, "y":0}, "emotionId":31, "emotion":"annoyance", "level":1,"emoji":"\ud83d\uDE21"},
+     "32":{ "vector":{"x":-2, "y":0}, "display_vector":{"x":-7.5, "y":0}, "emotionId":32, "emotion":"annoyance", "level":2,"emoji":"\ud83d\uDE21"},
+     "33":{ "vector":{"x":-3, "y":0}, "display_vector":{"x":-6.5, "y":0},"emotionId":33, "emotion":"annoyance", "level":3, "emoji":"\ud83d\uDE21"},
+     "34":{ "vector":{"x":-4, "y":0},"display_vector":{"x":-5.7, "y":0}, "emotionId":34, "emotion":"anger", "level":1 , "emoji":"\ud83d\uDE12"},
+     "35":{ "vector":{"x":-5, "y":0}, "display_vector":{"x":-5.3, "y":0}, "emotionId":35, "emotion":"anger", "level":2, "emoji":"\ud83d\uDE12"},
+     "36":{ "vector":{"x":-6, "y":0},"display_vector":{"x":-4.9, "y":0}, "emotionId":36, "emotion":"anger", "level":3, "emoji":"\ud83d\uDE12"},
      "37":{ "vector":{"x":-7, "y":0}, "display_vector":{"x":-4.5, "y":0}, "emotionId":37, "emotion":"anger", "level":4, "emoji":"\ud83d\uDE12"},
      "38":{ "vector":{"x":-8, "y":0},"display_vector":{"x":-4, "y":0}, "emotionId":38, "emotion":"anger", "level":5,"emoji":"\ud83d\uDE12"},
      "39":{ "vector":{"x":-9, "y":0}, "display_vector":{"x":-3, "y":0},"emotionId":39, "emotion":"rage", "level":1, "emoji":"\ud83d\uDE20"},
@@ -73,16 +73,19 @@ var emotions = {
     
     
     
-     "71":{ "vector":{"x":1*cos135, "y":1*sine135}, "display_vector":{"x":10*cos135, "y":10*sine135}, "emotionId":71, "emotion":"interest", "level":1},
-     "72":{ "vector":{"x":2*cos135, "y":2*sine135}, "display_vector":{"x":9*cos135, "y":9*sine135}, "emotionId":72, "emotion":"interest", "level":2},
-     "73":{ "vector":{"x":3*cos135, "y":3*sine135}, "display_vector":{"x":8*cos135, "y":8*sine135}, "emotionId":73, "emotion":"interest", "level":3},
-     "74":{ "vector":{"x":4*cos135, "y":4*sine135},"display_vector":{"x":7*cos135, "y":7*sine135},  "display_vector":{"x":7*cos135, "y":7*sine135},  "emotionId":74, "emotion":"anticipation", "level":1},
-     "75":{ "vector":{"x":5*cos135, "y":5*sine135},  "display_vector":{"x":6*cos135, "y":6*sine135}, "emotionId":75, "emotion":"anticipation", "level":2},
-     "76":{ "vector":{"x":6*cos135, "y":6*sine135},  "display_vector":{"x":5*cos135, "y":5*sine135},  "emotionId":76, "emotion":"anticipation", "level":3},
-     "77":{ "vector":{"x":7*cos135, "y":7*sine135},   "display_vector":{"x":4*cos135, "y":4*sine135}, "emotionId":77, "emotion":"anticipation", "level":4},
-     "78":{ "vector":{"x":8*cos135, "y":8*sine135},  "display_vector":{"x":3*cos135, "y":3*sine135},  "emotionId":78, "emotion":"anticipation", "level":5},  
-     "79":{ "vector":{"x":9*cos135, "y":9*sine135},  "display_vector":{"x":2*cos135, "y":2*sine135},  "emotionId":79, "emotion":"vigilance", "level":1},
-     "80":{ "vector":{"x":10*cos135, "y":10*sine135},  "display_vector":{"x":1*cos135, "y":1*sine135}, "emotionId":80, "emotion":"vigilance", "level":2},
+     "71":{ "vector":{"x":1*cos135, "y":1*sine135}, "display_vector":{"x":8.5*cos135, "y":8.5*sine135}, "emotionId":71, "emotion":"interest", "level":1,"emoji":"\ud83d\uDE4B"},
+     "72":{ "vector":{"x":2*cos135, "y":2*sine135}, "display_vector":{"x":7.5*cos135, "y":7.5*sine135}, "emotionId":72, "emotion":"interest", "level":2, "emoji":"\ud83d\uDE4B"},
+     "73":{ "vector":{"x":3*cos135, "y":3*sine135}, "display_vector":{"x":6.5*cos135, "y":6.5*sine135}, "emotionId":73, "emotion":"interest", "level":3,"emoji":"\ud83d\uDE0B"},
+    "74":{ "vector":{"x":4*cos135, "y":4*sine135},"display_vector":{"x":5.7*cos135, "y":5.7*sine135},    "emotionId":74, "emotion":"anticipation", "level":1,"emoji":"\ud83d\uDE0B"},   
+     "75":{ "vector":{"x":5*cos135, "y":5*sine135},  "display_vector":{"x":5.3*cos135, "y":5.3*sine135}, "emotionId":75, "emotion":"anticipation", "level":2,"emoji":"\ud83d\uDE0B"},
+     "76":{ "vector":{"x":6*cos135, "y":6*sine135},  "display_vector":{"x":4.9*cos135, "y":4.9*sine135},  "emotionId":76, "emotion":"anticipation", "level":3,"emoji":"\ud83d\uDE0B"},
+     "77":{ "vector":{"x":7*cos135, "y":7*sine135},   "display_vector":{"x":4.5*cos135, "y":4.5*sine135}, "emotionId":77, "emotion":"anticipation", "level":4,"emoji":"\ud83d\uDE0B" },  
+    "78":{ "vector":{"x":8*cos135, "y":8*sine135},  "display_vector":{"x":4*cos135, "y":4*sine135},  "emotionId":78, "emotion":"anticipation", "level":5,"emoji":"\ud83d\uDE0B"},  
+    "79":{ "vector":{"x":9*cos135, "y":9*sine135},  "display_vector":{"x":3*cos135, "y":3*sine135},  "emotionId":79, "emotion":"vigilance", "level":1,"emoji":"\ud83d\uDE4F"},
+     "80":{ "vector":{"x":10*cos135, "y":10*sine135},  "display_vector":{"x":1.5*cos135, "y":1.5*sine135}, "emotionId":80, "emotion":"vigilance", "level":2,"emoji":"\ud83d\uDE4F"},
+    
+    
+  
     
      "81":{ "vector":{"x":1*cos315, "y":1*sine315},"display_vector":{"x":10*cos315, "y":10*sine315}, "emotionId":81, "emotion":"distraction", "level":1},
      "82":{ "vector":{"x":2*cos315, "y":2*sine315}, "display_vector":{"x":9*cos315, "y":9*sine315},"emotionId":82, "emotion":"distraction", "level":2},
@@ -231,7 +234,7 @@ function deriveEmotion(nodes, year)
 function findClosestEmotion(derivedEmotion)
 {
    var minDistance = 1000 ;
-    var closestEmotion = emotions["1"] ;
+    var closestEmotion = emotions["11"] ;
     
     for (var emotionId in emotions) {
     if( emotions.hasOwnProperty(emotionId) ) {

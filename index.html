@@ -5,8 +5,10 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="css/tree.css">
-    <!-- Latest compiled and minified CSS -->
+
+    <link rel="stylesheet" type="text/css" href="css/tree.css">
+   <link rel="stylesheet" type="text/css" href="css/map.css">
+ 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -18,26 +20,51 @@
 <script charset="utf-8" src="js/emotions.js"></script>
 <script charset="utf-8" src="js/questionFilter.js"></script>
 <script charset="utf-8" src="js/tree.js"></script> 
-    <!-- Latest compiled and minified JavaScript -->
+<script charset="utf-8" src="js/map.js"></script> 
+
+<script src="http://d3js.org/topojson.v1.min.js"></script>  
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-        
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     
 </head>
     <body>
-       
+ 
+    <div class="container-fluid">
+       <div class="row">   
+            <div id="info" class="col-lg-6"></div>
+            <div id="tree"  class="col-lg-6"></div>
+       </div>
+       <div class="row">   
+           <div id="map" class="col-lg-6"></div>
+            <div id="wheel"  class="col-lg-6"></div>
+       </div>   
+    </div> 
+     
+<!--
   <div class="container-fluid">
-       <div class="row">
-           <div id="wheel" class="col-lg-6"></div>       
-        </div>
-      
-        <div class="row">
-            <div id="tree"  class="col-lg-12"></div>
+       <div class="row">   
+           <div id="mapcol" class="col-lg-6">
+               <div class="row">   
+                    <div id="info" class="col-lg-6">              
+               </div>
+               <div class="row">   
+                    <div id="map" class="col-lg-6">              
+               </div>
+           </div>
+           <div id="wheelviz" class="col-lg-6">
+              <div class="row">
+                <div id="tree"  class="col-lg-6"></div>
+              </div>
+              <div class="row">
+              
+                <div id="wheel"  class="col-lg-6"></div>
+              </div>  
+           </div>       
         </div>
         
   </div> 
        
-    
+-->    
 
             
    <script>       
@@ -45,22 +72,7 @@ var margin = {top: 20, right: 120, bottom: 20, left: 120},
     width = 1200 - margin.right - margin.left,
     height = 500 - margin.top - margin.bottom;
 
-       /*
-var diameter = 960;
-
-var tree = d3.layout.tree()
-    .size([360, diameter / 2 - 120])
-    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
-
-var diagonal = d3.svg.diagonal.radial()
-    .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
-
-var svg = d3.select("#wheel").append("svg")
-    .attr("width", diameter)
-    .attr("height", diameter - 150)
-  .append("g")
-    .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
-       */
+    
 
 tree.size([height, width]);
        
@@ -73,7 +85,9 @@ var svg = d3.select("#tree").append("svg")
        
   var viz = { "width":600 , 
             "height":600 } ;       
- drawWheel(viz) ;
+drawMap() ; 
+drawWheel(viz) ;
+       
  
 </script>
 

@@ -225,20 +225,29 @@ function click(d) {
       
         d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/TimeseriesFrequency?user_key=7a33ae85e08913180dd1bad6a3059acc&variableId="+d.variableId + "&filter=" + filter , function(error, varData) {
                
+            if(error){
+                console.log("Could not get data:" + error) ;
+                 return ;
+            }
+            
               varData.TimeSeries.forEach(function(dataPoint){
                    // match the datapoint to the mathing answer (category) child nodes for this question (variable)
                    // should return a single node in the filter array for the matching answer 
-                    categoryNode = varNode.children.filter(function(d) { 
+                    var categoryNode = varNode.children.filter(function(d) { 
                         return d.categoryValue == dataPoint.Value 
                     }) ;
                   
                     if(categoryNode.length > 0) {
-                        if(!categoryNode[0].data ) {
+                        if(!categoryNode[0].data ) 
+                        {
                             categoryNode[0].data ={} ;
-                            categoryNode[0].data.country = [] ;
+                           
+                            
                         }
-                  
-                        categoryNode[0].data.country.push(dataPoint) ;
+                        if(!categoryNode[0].data[country.code])
+                        {
+                           categoryNode[0].data[country.code] = [] ;
+                        }                 categoryNode[0].data[country.code].push(dataPoint) ;
                         // append data to node label for both years
                         // TODO maybe shift to update function?
                         //if(categoryNode[0].data.country.length <= 2) 

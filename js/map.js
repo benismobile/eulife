@@ -21,7 +21,7 @@ var path = d3.geo.path()
     .projection(projection)
     .pointRadius(2);
 
-/*
+
  country_lookup =
     {
         "eu27":{"country":"European Union", "filter":"22:2", "code":"eu27"} ,
@@ -54,8 +54,8 @@ var path = d3.geo.path()
         "UK":{"country":"United Kingdom", "filter":"2:27", "code":"UK"}
           
    };
-    */
     
+   /* 
 country_lookup =
     {
        
@@ -65,7 +65,7 @@ country_lookup =
          "EL":{"country":"Greece", "filter":"2:9", "code":"EL"}
           
    };    
-    
+    */
     
 var svg = d3.select("body").select("#map").append("svg")
     .attr("width", width)
@@ -141,6 +141,7 @@ d3.json("data/codes.json", function(error, codes) {
         .attr("class", function(d) { return "countrylabel countrylabel"  + d.properties.CNTR_ID; })
         .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
         .attr("dy", ".35em")
+        .attr("code", function(d) { return  d.properties.CNTR_ID })
         .attr("font-size",10)
         .attr("style", "fill-opacity:1.0;")
         .style("text-anchor", function(d) { return "middle" ; })
@@ -166,9 +167,23 @@ function showCountryEmotion(closestEmotion, country) {
             
      countrylabel.transition()
             .duration(250)                              
-            .attr("font-size", "36px")
-            .text(function(d){ return closestEmotion.emoji } ) ;
-    
+            .attr("font-size", "20px")
+            .text(function(d){ 
+               // return closestEmotion.emoji ;
+               var countryName = country_lookup[country].country ;
+               return countryName + "\n" + closestEmotion.emoji ;
+            }) ;
     
     
 } // ends showCountryEmotion
+
+function clearMap()
+{
+
+     var countrylabels = d3.selectAll(".countrylabel") ;
+            
+     countrylabels.transition()
+            .duration(250)                              
+            .attr("font-size", "12px")
+            .text(function(d){ return d.code } ) ;
+}

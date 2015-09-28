@@ -217,11 +217,14 @@ function deriveEmotion(nodes, year, country)
    
          
         
-        if(d.data &&  d.data.country && d.data.country.length > 0)
+        if(d.data)
         {
-            for(var i = 0 ; i < d.data.country.length ; i++)
+            var countryDataPoints = d.data[country] ;
+            
+            for(var i = 0 ; i < countryDataPoints.length ; i++)
             {
-                var dataPoint = d.data.country[i] ;
+                
+                var dataPoint = countryDataPoints[i] ;
                
                 if((year && dataPoint.Year == year) || !year)
                 {

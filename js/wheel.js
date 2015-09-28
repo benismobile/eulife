@@ -423,7 +423,7 @@ var defs = svgContainer.append("defs") ;
       .attr("class", function(d) {
             return "ePoint ePoint_" + d.id + " ePoint_" + d.emotion  
        })
-       .attr("fill", "blue")
+       .attr("fill", "none")
        .attr("opacity", 0.5)
       .attr("r", function(d) { return 15; });
     
@@ -455,7 +455,7 @@ var defs = svgContainer.append("defs") ;
                  .attr("font-size", "24px")
                  .attr("style", "fill-opacity:1.0;")
                  .attr("style", "text-align: center;")
-                 .attr("fill", "black")
+                 .attr("fill", "none")
                  .text( function (d) {
                      return d.emoji; 
                  }) 
@@ -657,6 +657,13 @@ var defs = svgContainer.append("defs") ;
                 .attr("stroke-width", "2")
                 .attr("opacity", 0.25) ;
         
+         var emojiPoint = d3.selectAll(".emojiPoint") ;
+         emojiPoint.transition()
+            .duration(250)                              
+            .attr("font-size", "24px")
+            .attr("fill", "none") ;
+                 
+        
         
     }
     
@@ -700,5 +707,17 @@ var defs = svgContainer.append("defs") ;
                 .attr("r", function(d) { return 20; });
         
     
+        
+    var emojiPoint = d3.select(".emojiPoint_"+ emotion.emotionId) ;
+         emojiPoint.transition()
+            .duration(250)                              
+            .attr("font-size", "36px")
+            .attr("style", "fill-opacity:1.0;")
+            .attr("style", "text-align: center;")
+            .attr("fill", "black") ;
+                 
+  
+    
+        
     
     }

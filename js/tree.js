@@ -164,7 +164,10 @@ function click(d) {
     console.log("click on expanded node" );  
     
     // TODO get current country selected
-    calculateEmotions("eu27");  
+      for (var countryId in country_lookup) {
+               calculateEmotions(countryId);
+        }
+      
   } 
   else {
     console.log("click on node which is not expanded" );  
@@ -182,14 +185,25 @@ function click(d) {
             update(d) ;
              console.log("updated variable with previous cache results" ); 
             // TODO get current country selected
-            calculateEmotions("eu27");
+            for (var countryId in country_lookup) {
+               calculateEmotions(countryId);
+            }
         }
         else
         {
-           timeSeriesData(varNode,d,null,"eu27") ;      
-           timeSeriesData(varNode,d,null,"AT") ;  
-           timeSeriesData(varNode,d,null,"EL") ;      
-        }
+     
+           for (var countryId in country_lookup) {
+             if( country_lookup.hasOwnProperty(countryId) ) 
+             {
+                var country = country_lookup[countryId] ;
+                  console.log("calling timeSeriesData for country" + country.code );
+               
+                   timeSeriesData(varNode,d,null,country) ;      
+                
+             }
+           }
+            
+         }
     }
     else
     {
@@ -206,19 +220,9 @@ function click(d) {
   function timeSeriesData(varNode,d, filter, country)
   {
        if(!filter){filter = "" ;}   
+       
+        filter = filter + country.filter ;
       
-       if(country=="eu27")
-       {
-            filter = filter + "22:2" ;   
-       }
-       else if(country=="AT")
-       {
-               filter = filter + "2:1" ;   
-       }
-       else if(country=="EL")
-       {
-               filter = filter + "2:9" ;   
-       }
         d3.json("https://api.ukdataservice.ac.uk/V1/datasets/EQLS/TimeseriesFrequency?user_key=7a33ae85e08913180dd1bad6a3059acc&variableId="+d.variableId + "&filter=" + filter , function(error, varData) {
                
               varData.TimeSeries.forEach(function(dataPoint){
@@ -239,7 +243,7 @@ function click(d) {
                         // TODO maybe shift to update function?
                         //if(categoryNode[0].data.country.length <= 2) 
                         //{
-                         categoryNode[0].name = categoryNode[0].name + " (" + dataPoint.Year + ") " + country + ":" + dataPoint.WeightedFrequency + " " ;
+                         categoryNode[0].name = categoryNode[0].name + " (" + dataPoint.Year + ") " + country.country + ":" + dataPoint.WeightedFrequency + " " ;
                         //} 
                     }
                      
@@ -249,7 +253,7 @@ function click(d) {
               update(d) ;
             
               console.log("updated variable with no cache" );        
-              calculateEmotions(country) ; 
+              calculateEmotions(country.code) ; 
                
            });
       
@@ -292,9 +296,17 @@ function click(d) {
        return ;
    }
     
- 
-  unfocusAll() ; 
-  if(blendedStateComponents.hasOwnProperty(closestEmotion2011.emotion))
+  if("eu27" != country)
+  {
+    showCountryEmotion(closestEmotion2011, country)  ;    
+  }
+      
+  if("eu27" == country) // TODO if selected_country=country
+  {
+    unfocusAll() ; 
+  
+
+       if(blendedStateComponents.hasOwnProperty(closestEmotion2011.emotion))
   {
                         
     blendedFocusSelected(closestSelection, 1.0) ;
@@ -305,12 +317,13 @@ function click(d) {
     segmentFocus(closestSelection, 1.0) ;
   
   }
-      
-  emotionPointFocus(closestEmotion2011);
-      
-      
-      
+   
+  
+    emotionPointFocus(closestEmotion2011);
+  }
+            
 } // ends calculate emotions
+
 
   function wrap(text, width) {
       width = width + 10 ;

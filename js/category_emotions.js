@@ -3,10 +3,10 @@ var categoryEmotions = {
     
     
     "610":{ "variableId":140 , "categoryId":610 , "emotionId": 120 },
-    "611":{ "variableId":140 , "categoryId":611 , "emotionId": 118 },
-    "612":{ "variableId":140 , "categoryId":612 , "emotionId": 116 },
-    "613":{ "variableId":140 , "categoryId":613 , "emotionId": 23 },
-    "614":{ "variableId":140 , "categoryId":614 , "emotionId": 27 },
+    "611":{ "variableId":140 , "categoryId":611 , "emotionId": 117 },
+    "612":{ "variableId":140 , "categoryId":612 , "emotionId": 111 },
+    "613":{ "variableId":140 , "categoryId":613 , "emotionId": 161 },
+    "614":{ "variableId":140 , "categoryId":614 , "emotionId": 164 },
     
     "615":{ "variableId":141 , "categoryId":615 , "emotionId": 105 },
     "616":{ "variableId":141 , "categoryId":616 , "emotionId": 46 },

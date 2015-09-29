@@ -26,6 +26,25 @@
 <script src="http://d3js.org/topojson.v1.min.js"></script>  
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <style>
+ 
+        h2 {
+            text-align: center;
+            margin-bottom: 20px ;
+        }
+        .ctrl{
+            float: right
+        }
+        .ctrllabel{
+            float: left;
+        }
+        p {
+            margin-bottom: 20px;  
+        }
+    </style>
+    
+
     
 </head>
     <body>
@@ -43,8 +62,41 @@
  
     <div class="container-fluid">
        <div class="row">   
-            <div id="panel" class="col-lg-6"></div>
-            <div id="tree"  class="col-lg-6"></div>
+            <div id="panel" class="col-lg-3">
+              <h2>&#x1F1EA;&#x1F1FA;Life Emotion Viz</h2>
+           
+                <br/>
+                <p class="ctrl">
+                <label class="ctrllabel" for="cntlyear"> Choose Year&nbsp;&nbsp;</label>
+                <select class="ctrlyear" id="ctrlyear">
+                    <option value="2011">2011</option>
+                    <option value="2007">2007</option>
+                </select>  
+                </p>
+                
+                <p class="ctrl">
+                <label class="ctrllabel"  for="genderctrl">Choose Gender&nbsp;&nbsp;</label>
+                <select class="ctrlgender" id="genderctrl">
+                    <option value="all">All Genders</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>    
+                </p>
+                
+                <p class="ctrl">
+                <label class="ctrllabel"  for="agectrl">Choose Age Group&nbsp;&nbsp;</label>
+                <select class="ctrlage" id="agectrl">
+                    <option value="age_18_24">All Ages</option>
+                    <option value="age_18_24">18-24</option>
+                    <option value="age_25_34">25-34</option>
+                    <option value="age_35_49">35-49</option>
+                    <option value="age_50_64">50-64</option>
+                    <option value="age_65_over">65+</option>
+                </select>    
+                </p>
+                
+            </div>
+            <div id="tree"  class="col-lg-9"></div>
        </div>
        <div class="row">   
            <div id="map" class="col-lg-6"></div>
@@ -59,11 +111,12 @@
    <script>       
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
     width = 1200 - margin.right - margin.left,
-    height = 500 - margin.top - margin.bottom;
+    height = 300 - margin.top - margin.bottom;
 
     
 
 tree.size([height, width]);
+// tree.nodeSize([24, 24]);
        
 var svg = d3.select("#tree").append("svg")
     .attr("width", width + margin.right + margin.left)
@@ -72,8 +125,8 @@ var svg = d3.select("#tree").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
        
-  var viz = { "width":600 , 
-            "height":600 } ;       
+  var viz = { "width":450 , 
+            "height":450 } ;       
 drawMap() ; 
 drawWheel(viz) ;
        

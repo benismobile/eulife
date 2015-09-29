@@ -3,18 +3,23 @@ var country_lookup = {} ;
 function drawMap()
 {
 
-var width = 960,
-    height = 1160;
+//var width = 960,
+//    height = 1160;
 
+var width = 620,
+    height = 700;    
+    
 var countryCodes = {} ;
-
+// .center([3.9,43.0]) 
+    // .scale(1700)
+   // .clipExtent([[0, 50], [width-285, height-400]])
 var projection = d3.geo.stereographic()
     .scale(1700)
-    .center([3.9,43.0])    
+    .center([-7.5,49.0])    
     .translate([width / 2, height / 2])
     .rotate([-20, 0])
     .clipAngle(180 - 1e-4)
-    .clipExtent([[0, 50], [width-285, height-400]])
+    .clipExtent([[0, 0], [width, height]])
     .precision(.1);
 
 var path = d3.geo.path()
@@ -192,7 +197,7 @@ d3.json("data/codes.json", function(error, codes) {
         .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
         .attr("dy", "-0.35em")
         .attr("code", function(d) { return  d.properties.CNTR_ID })
-        .attr("font-size",24)
+        .attr("font-size",32)
         .attr("style", "fill-opacity:1.0;")
         .style("text-anchor", function(d) { return "middle" ; })
         .text(function(d) {  
